@@ -1,5 +1,6 @@
 import { site } from '../../../data/site'
 import Avatar from '../../ui/Avatar'
+import './Hero.css'
 
 /*
   Top of the page: who I am in one screen, with the three actions a recruiter
@@ -9,7 +10,7 @@ export default function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="bg-surface">
       <div className="mx-auto flex max-w-5xl flex-col-reverse items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 md:flex-row md:justify-between">
-        <div className="max-w-2xl text-center md:text-left">
+        <div className="hero__content max-w-2xl text-center md:text-left">
           <p className="text-brand-700 text-sm font-semibold">
             {site.location}
           </p>
@@ -48,7 +49,9 @@ export default function Hero() {
           </div>
         </div>
 
-        <Avatar className="h-32 w-32 shrink-0 sm:h-44 sm:w-44" />
+        <div className="hero__photo shrink-0">
+          <Avatar className="h-32 w-32 sm:h-44 sm:w-44" />
+        </div>
       </div>
     </section>
   )

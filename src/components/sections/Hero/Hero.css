@@ -1,0 +1,25 @@
+/*
+  Hero entrance.
+  Own CSS file because of the @keyframes: the text rises in first and the
+  photo follows a moment later. Only runs when motion is allowed.
+*/
+@media (prefers-reduced-motion: no-preference) {
+  .hero__content {
+    animation: hero-enter 600ms ease-out both;
+  }
+
+  .hero__photo {
+    animation: hero-enter 600ms ease-out 150ms both;
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

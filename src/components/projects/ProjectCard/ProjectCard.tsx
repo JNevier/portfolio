@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '../../../data/projects'
+import './ProjectCard.css'
 
 type ProjectCardProps = {
   project: Project
@@ -11,7 +12,7 @@ type ProjectCardProps = {
 */
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="border-line bg-surface flex flex-col overflow-hidden rounded-lg border">
+    <article className="project-card border-line bg-surface flex flex-col overflow-hidden rounded-lg border">
       {project.screenshot ? (
         <img
           src={project.screenshot}
@@ -68,7 +69,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="mt-auto flex flex-wrap gap-4 pt-5">
           <Link
             to={`/projects/${project.slug}`}
-            className="text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
+            className="project-card__link text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
           >
             Read case study
             <span className="sr-only"> about {project.title}</span>
@@ -80,7 +81,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
+              className="project-card__link text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
             >
               {link.label}
               <span className="sr-only"> for {project.title} (opens in a new tab)</span>

@@ -1,0 +1,44 @@
+/*
+  Project card micro-interactions.
+  Own CSS file because of the multi-step hover transition, a hand-written
+  @media query that limits the lift to devices with a mouse, and a
+  dark-theme tweak for the shadow.
+*/
+.project-card {
+  --project-card-shadow: color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+/* In the dark theme a shadow made from the (light) ink colour would glow,
+   so it is switched off. The border colour change still shows the hover. */
+:root[data-theme='dark'] .project-card {
+  --project-card-shadow: transparent;
+}
+
+/* Press feedback: the link dips slightly while it is being clicked or tapped. */
+.project-card__link {
+  display: inline-block;
+}
+
+.project-card__link:active {
+  transform: translateY(1px);
+}
+
+/* Lift the card on hover, only where a real hover exists (not on touch screens). */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .project-card {
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out,
+      border-color 200ms ease-out;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-brand-200);
+    box-shadow: 0 12px 24px -12px var(--project-card-shadow);
+  }
+
+  .project-card__link {
+    transition: transform 100ms ease-out;
+  }
+}
