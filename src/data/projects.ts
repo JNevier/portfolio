@@ -70,7 +70,13 @@ export const projects: Project[] = [
       'Owned the technical test plan covering 108 unit, integration, system, and alpha test cases, all passed; collaborated through GitHub feature branches and refined the prototype using feedback from four visually impaired reviewers.',
       'The device sustained 29.6 FPS with both AI models running and 3.64+ hours of battery life, evaluated by 25 legally blind participants (mean SUS: 59.1).',
     ],
-    links: [],
+    // The team's repository, opened on the branch with my ESP32 glasses firmware.
+    links: [
+      {
+        label: 'Code (ESP32 firmware branch)',
+        href: 'https://github.com/KRMeeag/second-vision/tree/feat/esp32-glasses',
+      },
+    ],
     // Replace with a real screenshot or photo later
     screenshot: '/projects/second-vision.png',
     screenshotAlt: 'Team Innovision logo, the team behind Second Vision',
