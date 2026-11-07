@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { site } from '../../../data/site'
 import { useActiveSection } from '../../../hooks/useActiveSection'
 import ThemeToggle from '../../ui/ThemeToggle'
+import './Navbar.css'
 
 const navLinks = [
   { to: '/#projects', label: 'Projects' },
@@ -68,7 +69,7 @@ export default function Navbar() {
                   <Link
                     to={link.to}
                     aria-current={ariaCurrent}
-                    className={`hover:text-brand-700 text-sm font-medium ${isActive ? 'text-brand-700' : 'text-muted'}`}
+                    className={`navbar__link text-sm font-medium ${isActive ? 'navbar__link--active' : ''}`}
                   >
                     {link.label}
                   </Link>
