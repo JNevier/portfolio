@@ -1,8 +1,41 @@
-import { certifications, trainings } from '../../../data/certifications'
+import {
+  certifications as defaultCertifications,
+  trainings as defaultTrainings,
+} from '../../../data/certifications'
+import type { Certification, Training } from '../../../data/certifications'
 import Section from '../../ui/Section'
+import './Certifications.css'
 
-/* Certifications & Training: certificates first, then seminars. */
-export default function Certifications() {
+type CertificationsProps = {
+  /** Defaults to the data file. Tests pass their own lists. */
+  certifications?: Certification[]
+  trainings?: Training[]
+}
+
+/* Opens in a new tab, and says so to screen-reader users. */
+function CredentialLink({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-brand-700 text-sm font-semibold hover:underline"
+    >
+      View credential
+      <span className="sr-only"> (opens in a new tab)</span>
+    </a>
+  )
+}
+
+/*
+  Certifications & Training: certificates first, then seminars.
+  A certificate with courses gets a native <details> toggle listing them,
+  so the list stays out of the way until a visitor asks for it.
+*/
+export default function Certifications({
+  certifications = defaultCertifications,
+  trainings = defaultTrainings,
+}: CertificationsProps) {
   return (
     <Section id="certifications" title="Certifications & Training">
       <div className="grid gap-6 md:grid-cols-2">
@@ -22,15 +55,31 @@ export default function Certifications() {
                 </p>
                 {/* Only shown once a credential link is added in the data file. */}
                 {cert.credentialUrl && (
-                  <a
-                    href={cert.credentialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-brand-700 mt-2 inline-block text-sm font-semibold hover:underline"
-                  >
-                    View credential
-                    <span className="sr-only"> (opens in a new tab)</span>
-                  </a>
+                  <p className="mt-2">
+                    <CredentialLink href={cert.credentialUrl} />
+                  </p>
+                )}
+
+                {cert.courses && cert.courses.length > 0 && (
+                  <details className="certifications__courses mt-4">
+                    <summary className="certifications__summary text-sm font-semibold">
+                      View the {cert.courses.length} courses in this certificate
+                    </summary>
+                    <ol className="mt-3 list-decimal space-y-2 pl-6 text-sm">
+                      {cert.courses.map((course) => (
+                        <li key={course.name}>
+                          {course.name}
+                          {/* No URL yet: show the name only, never an empty link. */}
+                          {course.credentialUrl && (
+                            <>
+                              {' · '}
+                              <CredentialLink href={course.credentialUrl} />
+                            </>
+                          )}
+                        </li>
+                      ))}
+                    </ol>
+                  </details>
                 )}
               </li>
             ))}

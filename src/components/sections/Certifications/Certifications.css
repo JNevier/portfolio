@@ -1,0 +1,55 @@
+/*
+  The "View the courses" toggle on a certificate.
+  Own CSS file because of the ::after chevron, the [open] state, a custom
+  :focus-visible style for <summary>, and motion that respects reduced motion.
+*/
+.certifications__summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--color-brand-700);
+  border-radius: 0.25rem;
+  /* Hide the browser's own triangle; the chevron below replaces it. */
+  list-style: none;
+}
+
+.certifications__summary::-webkit-details-marker {
+  display: none;
+}
+
+.certifications__summary:hover {
+  color: var(--color-brand-800);
+}
+
+/* <summary> is not covered by the global focus rule, so it gets its own. */
+.certifications__summary:focus-visible {
+  outline: 2px solid var(--color-brand-700);
+  outline-offset: 2px;
+}
+
+/* The chevron: two borders of a small square, turned to point down. */
+.certifications__summary::after {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: -0.25rem;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+/* Open: the chevron points up. */
+.certifications__courses[open] > .certifications__summary::after {
+  margin-top: 0.25rem;
+  transform: rotate(-135deg);
+}
+
+/* The turn is animated only for visitors who have not asked for less motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .certifications__summary::after {
+    transition:
+      transform 200ms ease-out,
+      margin-top 200ms ease-out;
+  }
+}
