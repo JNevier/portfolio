@@ -1,9 +1,8 @@
 /*
   Reveal wrapper.
   Own CSS file because of the multi-step transition. Everything is inside
-  the no-preference media query: with reduced motion turned on (or when
-  printing), nothing is
-  hidden or moved.
+  the screen + no-preference media query: with reduced motion turned on,
+  or when printing, nothing is hidden or moved.
 */
 @media screen and (prefers-reduced-motion: no-preference) {
   .reveal {
