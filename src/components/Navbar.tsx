@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { site } from '../data/site'
 
 const navLinks = [
@@ -14,6 +14,19 @@ const navLinks = [
 */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+
+  // Keyboard users can close the open mobile menu with the Escape key.
+  useEffect(() => {
+    if (!isOpen) return
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    // Clean up the listener when the menu closes or the component unmounts.
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
   return (
     <header className="border-line bg-surface/95 sticky top-0 z-40 border-b backdrop-blur">
