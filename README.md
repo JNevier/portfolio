@@ -208,7 +208,7 @@ practice page for data structures and algorithms.
 |---|---|
 | `public/Reiven-Jasa-Resume.pdf` | The navbar Resume button (`resumePath` in `site.ts`). To update it, replace the file and keep the name |
 | `public/profile.jpg` | The photo in the Hero and About sections (`photo` in `site.ts`) |
-| `public/de_la_salle_lipa_logo.jpg` | The Education card (`education.logo` in `site.ts`) |
+| `public/de_la_salle_lipa_logo.png` | The Education card (`education.logo` in `site.ts`) |
 | `public/projects/*.png` | Each project's `screenshot` in `projects.ts` |
 | `public/recognition/*.jpg` | Proof thumbnails (`proof.src` in `highlights.ts`) |
 

@@ -53,5 +53,5 @@ export const education = {
   period: '2023 – Expected 2027',
   gpa: 'Cumulative GPA: 3.30 / 4.00',
   // The school logo shown in the About section. The file lives in public/.
-  logo: '/de_la_salle_lipa_logo.jpg',
+  logo: '/de_la_salle_lipa_logo.png',
 }
