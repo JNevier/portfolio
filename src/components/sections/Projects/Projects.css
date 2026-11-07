@@ -1,0 +1,13 @@
+/*
+  Projects grid.
+  Own CSS file because the column count is decided by the grid itself, not by
+  breakpoints: as many columns as fit while each card stays at least 17rem
+  wide. min(100%, 17rem) stops overflow on very narrow phones, and auto-fill
+  keeps one or two cards at their normal size instead of stretching them.
+  With the 64rem content width this gives 1, 2 or 3 columns.
+*/
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1.5rem;
+}

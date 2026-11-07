@@ -1,0 +1,39 @@
+/*
+  The 16:9 image frame for projects.
+  Own CSS file because of aspect-ratio, object-fit modifiers, and the
+  constant --color-media background that does not follow the theme.
+*/
+.project-media {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--color-media);
+}
+
+.project-media__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Whole image visible, never cropped, with a little breathing room. */
+.project-media__img--contain {
+  object-fit: contain;
+  padding: 1rem;
+}
+
+/* Fills the frame edge to edge; may crop. Meant for real photos. */
+.project-media__img--cover {
+  object-fit: cover;
+}
+
+/* Shown until a project has an image. Uses theme tokens, unlike the white frame. */
+.project-media--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-brand-50);
+  color: var(--color-brand-700);
+  font-size: 1.5rem;
+  font-weight: 700;
+}

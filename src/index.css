@@ -28,6 +28,13 @@
   --color-line: #e2e8f0;
   --color-ink: #0f172a;
   --color-muted: #475569;
+
+  /*
+    Always-white panel behind project logos and illustrations. They have
+    transparent or white backgrounds and dark text, so this stays white in
+    the dark theme on purpose (it is not overridden below).
+  */
+  --color-media: #ffffff;
 }
 
 /*
