@@ -1,0 +1,50 @@
+/*
+  About section layout.
+  Own CSS file because it uses grid-template-areas and hand-written
+  @media queries: stacked on phones, photo beside the text on larger screens.
+*/
+.about {
+  display: grid;
+  gap: 2rem;
+  grid-template-areas:
+    'photo'
+    'bio'
+    'facts';
+}
+
+.about__photo {
+  grid-area: photo;
+  justify-self: center;
+}
+
+.about__bio {
+  grid-area: bio;
+}
+
+.about__facts {
+  grid-area: facts;
+}
+
+/* Tablet: photo on the left of the bio, cards full width underneath. */
+@media (min-width: 768px) {
+  .about {
+    grid-template-columns: auto 1fr;
+    column-gap: 2.5rem;
+    grid-template-areas:
+      'photo bio'
+      'facts facts';
+  }
+
+  .about__photo {
+    justify-self: start;
+  }
+}
+
+/* Desktop: the photo gets its own column and the cards line up under the bio. */
+@media (min-width: 1024px) {
+  .about {
+    grid-template-areas:
+      'photo bio'
+      'photo facts';
+  }
+}
