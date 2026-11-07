@@ -1,8 +1,8 @@
 # Reiven O. Jasa — Portfolio
 
-<!-- CI badge: uncomment once the workflow has run on GitHub.
 [![CI](https://github.com/JNevier/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/JNevier/portfolio/actions/workflows/ci.yml)
--->
+
+Live site: [reiven-jasa.vercel.app](https://reiven-jasa.vercel.app)
 
 My personal developer portfolio: my projects, skills, certifications, and
 contact details, with a page per project, a light and dark theme, and a
