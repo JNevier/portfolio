@@ -1,14 +1,17 @@
 import About from './components/About'
 import Certifications from './components/Certifications'
+import Contact from './components/Contact'
+import Footer from './components/Footer'
 import Hero from './components/Hero'
 import Highlights from './components/Highlights'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
-import { site } from './data/site'
 
-const currentYear = new Date().getFullYear()
-
+/*
+  The whole page, top to bottom. Each section is its own component, and the
+  navbar links jump to them by their id (e.g. #projects).
+*/
 export default function App() {
   return (
     <>
@@ -28,13 +31,10 @@ export default function App() {
         <About />
         <Skills />
         <Certifications />
+        <Contact />
       </main>
 
-      <footer className="border-line border-t">
-        <div className="text-muted mx-auto max-w-5xl px-4 py-8 text-sm sm:px-6">
-          © {currentYear} {site.name}
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }
