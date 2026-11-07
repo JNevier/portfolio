@@ -38,8 +38,9 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/reivenjasa/' as string | null,
   },
 
-  // The file lives in public/resume.pdf.
-  resumePath: '/resume.pdf',
+  // The file lives in public/Reiven-Jasa-Resume.pdf. Visitors download it
+  // under this name, so keep it as Firstname-Lastname-Resume.pdf.
+  resumePath: '/Reiven-Jasa-Resume.pdf',
 
   // The file lives in public/profile.jpg. Set to null to show the "RJ" initials instead.
   photo: '/profile.jpg' as string | null,
