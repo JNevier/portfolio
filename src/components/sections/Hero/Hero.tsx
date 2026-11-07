@@ -3,8 +3,9 @@ import Avatar from '../../ui/Avatar'
 import './Hero.css'
 
 /*
-  Top of the page: who I am in one screen, with the three actions a recruiter
-  is most likely to want. This holds the page's only <h1>.
+  Top of the page: who I am in one screen, with the two actions a recruiter
+  is most likely to want. The Resume button lives in the navbar only.
+  This holds the page's only <h1>.
 */
 export default function Hero() {
   return (
@@ -32,13 +33,6 @@ export default function Hero() {
               className="bg-brand-700 hover:bg-brand-800 rounded-md px-5 py-3 text-center font-semibold text-on-brand"
             >
               View Projects
-            </a>
-            <a
-              href={site.resumePath}
-              download
-              className="border-line hover:bg-surface-muted rounded-md border px-5 py-3 text-center font-semibold"
-            >
-              Download Resume
             </a>
             <a
               href="#contact"
