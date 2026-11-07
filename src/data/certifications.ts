@@ -34,7 +34,7 @@ export const certifications: Certification[] = [
     // Each course links to its own Coursera credential.
     courses: [
       { name: 'Introduction to Front-End Development', credentialUrl: 'https://coursera.org/share/b4d0b4d7cdaa5a59d11896af55af4ba5' },
-      { name: 'Programming with JavaScript', credentialUrl: 'https://coursera.org/share/8e9cb1231254ff5d60139b80fbaa325a' },
+      { name: 'Programming with JavaScript', credentialUrl: 'https://coursera.org/share/5de04465c9a22387a4f8195058dad5c7' },
       { name: 'Version Control', credentialUrl: 'https://coursera.org/share/8bdd7f626e65e7d94ff462f2eec01422' },
       { name: 'HTML and CSS in Depth', credentialUrl: 'https://coursera.org/share/063845ad01914968cbf39f5197f49a3a' },
       { name: 'React Basics', credentialUrl: 'https://coursera.org/share/0de258bc3388462daedcf98626704b39' },
