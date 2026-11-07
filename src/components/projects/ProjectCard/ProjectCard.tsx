@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { Project } from '../../../data/projects'
 
 type ProjectCardProps = {
@@ -64,23 +65,29 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </ul>
 
         {/* mt-auto pushes the links to the bottom so cards line up. */}
-        {project.links.length > 0 && (
-          <div className="mt-auto flex flex-wrap gap-4 pt-5">
-            {project.links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
-              >
-                {link.label}
-                <span className="sr-only"> for {project.title} (opens in a new tab)</span>
-                <span aria-hidden="true"> ↗</span>
-              </a>
-            ))}
-          </div>
-        )}
+        <div className="mt-auto flex flex-wrap gap-4 pt-5">
+          <Link
+            to={`/projects/${project.slug}`}
+            className="text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
+          >
+            Read case study
+            <span className="sr-only"> about {project.title}</span>
+            <span aria-hidden="true"> →</span>
+          </Link>
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
+            >
+              {link.label}
+              <span className="sr-only"> for {project.title} (opens in a new tab)</span>
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          ))}
+        </div>
       </div>
     </article>
   )
