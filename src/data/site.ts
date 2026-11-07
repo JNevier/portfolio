@@ -28,18 +28,15 @@ export const site = {
 
   links: {
     github: 'https://github.com/JNevier',
-    // TODO: add your LinkedIn profile URL here to show a LinkedIn link.
-    linkedin: null as string | null,
+    // Set to null to hide the LinkedIn link.
+    linkedin: 'https://www.linkedin.com/in/reivenjasa/' as string | null,
   },
 
-  // TODO: add your resume PDF to public/resume.pdf for this button to work.
+  // The file lives in public/resume.pdf.
   resumePath: '/resume.pdf',
 
-  /*
-    TODO: add a square photo to public/profile.jpg to replace the initials avatar.
-    Leave this as null and the site shows a clean "RJ" circle instead.
-  */
-  photo: null as string | null,
+  // The file lives in public/profile.jpg. Set to null to show the "RJ" initials instead.
+  photo: '/profile.jpg' as string | null,
 }
 
 export const education = {

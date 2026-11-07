@@ -22,7 +22,7 @@ export const certifications: Certification[] = [
     name: 'Meta Front-End Developer Professional Certificate',
     issuer: 'Coursera',
     year: '2026',
-    // TODO: add `credentialUrl: '...'` here once the credential link is available.
+    credentialUrl: 'https://coursera.org/share/08e90ef9701ae512bd1643f9aa7936aa',
   },
 ]
 

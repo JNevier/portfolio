@@ -65,8 +65,7 @@ export const projects: Project[] = [
       'The device sustained 29.6 FPS with both AI models running and 3.64+ hours of battery life, evaluated by 25 legally blind participants (mean SUS: 59.1).',
     ],
     links: [],
-    // TODO: add a photo or screenshot to public/projects/second-vision.png, then set this to '/projects/second-vision.png'.
-    screenshot: null,
+    screenshot: '/projects/second-vision.png',
     screenshotAlt: 'The Second Vision smart glasses prototype',
     caseStudy: {
       subtitle: 'Smart Glasses for the Visually Impaired',
@@ -105,8 +104,7 @@ export const projects: Project[] = [
         href: 'https://github.com/JNevier/sobre-project-backend',
       },
     ],
-    // TODO: add a screenshot to public/projects/sobre-pos.png, then set this to '/projects/sobre-pos.png'.
-    screenshot: null,
+    screenshot: '/projects/sobre-pos.png',
     screenshotAlt: 'The Sobre POS checkout screen',
     caseStudy: {
       subtitle: 'Point-of-Sale Web Application',
@@ -115,10 +113,6 @@ export const projects: Project[] = [
       ],
     },
   },
-
-  /*
-    Little Lemon is hidden until I confirm it. Remove the comment markers
-    around this entry to show it on the site.
 
   {
     slug: 'little-lemon',
@@ -134,8 +128,7 @@ export const projects: Project[] = [
     links: [
       { label: 'Code', href: 'https://github.com/JNevier/little-lemon' },
     ],
-    screenshot: null,
-    screenshotAlt: 'The Little Lemon reservation page',
+    screenshot: '/projects/logo-yellow-lemon-box.png',
+    screenshotAlt: 'The Little Lemon restaurant logo',
   },
-  */
 ]
