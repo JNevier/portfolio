@@ -1,6 +1,6 @@
-import { projects } from '../data/projects'
-import ProjectCard from './ProjectCard'
-import Section from './Section'
+import { projects } from '../../../data/projects'
+import ProjectCard from '../../projects/ProjectCard'
+import Section from '../../ui/Section'
 
 /* The Projects section: one card per entry in src/data/projects.ts. */
 export default function Projects() {

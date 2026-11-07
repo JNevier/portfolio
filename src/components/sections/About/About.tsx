@@ -1,6 +1,6 @@
-import { education, site } from '../data/site'
-import Avatar from './Avatar'
-import Section from './Section'
+import { education, site } from '../../../data/site'
+import Avatar from '../../ui/Avatar'
+import Section from '../../ui/Section'
 
 /* Short bio, photo, education, and what kind of role I am looking for. */
 export default function About() {

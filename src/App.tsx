@@ -1,12 +1,12 @@
-import About from './components/About'
-import Certifications from './components/Certifications'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import Hero from './components/Hero'
-import Highlights from './components/Highlights'
-import Navbar from './components/Navbar'
-import Projects from './components/Projects'
-import Skills from './components/Skills'
+import About from './components/sections/About'
+import Certifications from './components/sections/Certifications'
+import Contact from './components/sections/Contact'
+import Footer from './components/layout/Footer'
+import Hero from './components/sections/Hero'
+import Highlights from './components/sections/Highlights'
+import Navbar from './components/layout/Navbar'
+import Projects from './components/sections/Projects'
+import Skills from './components/sections/Skills'
 
 /*
   The whole page, top to bottom. Each section is its own component, and the

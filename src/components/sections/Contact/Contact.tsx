@@ -1,5 +1,5 @@
-import { site } from '../data/site'
-import Section from './Section'
+import { site } from '../../../data/site'
+import Section from '../../ui/Section'
 
 /*
   Contact section. There is no backend, so the email button opens the

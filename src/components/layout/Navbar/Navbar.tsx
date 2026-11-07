@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { site } from '../data/site'
+import { site } from '../../../data/site'
 
 const navLinks = [
   { href: '#projects', label: 'Projects' },

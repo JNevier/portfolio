@@ -1,5 +1,5 @@
-import { skillGroups } from '../data/skills'
-import Section from './Section'
+import { skillGroups } from '../../../data/skills'
+import Section from '../../ui/Section'
 
 /* Skills & Tools: one card per group from src/data/skills.ts. */
 export default function Skills() {

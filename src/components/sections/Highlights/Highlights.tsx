@@ -1,4 +1,4 @@
-import { highlights } from '../data/highlights'
+import { highlights } from '../../../data/highlights'
 
 /*
   Slim proof strip right under the hero, so a visitor sees the competition
