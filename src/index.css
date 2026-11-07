@@ -27,12 +27,21 @@
 
 html {
   scroll-behavior: smooth;
+  /* Never allow sideways scrolling on small phones. */
+  overflow-x: clip;
   /* Stops the sticky navbar from covering a section heading after an anchor jump. */
   scroll-padding-top: 5rem;
 }
 
 body {
   @apply bg-surface text-ink font-sans antialiased;
+}
+
+/* Respect visitors who ask their device for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* One visible focus style for every keyboard user, on every interactive element. */
