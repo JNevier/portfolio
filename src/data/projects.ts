@@ -111,10 +111,10 @@ export const projects: Project[] = [
         href: 'https://github.com/JNevier/sobre-project-backend',
       },
     ],
-    // Replace with a real screenshot or photo later
+    // A real screenshot. 'contain' (the default) shows it whole, without cropping.
     screenshot: '/projects/sobre-pos.png',
     screenshotAlt:
-      'Illustration of a checklist and stacked boxes, representing sales and inventory',
+      'The Sobre log-in screen, with a sales and inventory illustration beside the log-in form',
     caseStudy: {
       subtitle: 'Point-of-Sale Web Application',
       overview: [
