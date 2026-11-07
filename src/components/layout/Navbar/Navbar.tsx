@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { site } from '../../../data/site'
+import { useActiveSection } from '../../../hooks/useActiveSection'
 import ThemeToggle from '../../ui/ThemeToggle'
 
 const navLinks = [
@@ -9,6 +10,9 @@ const navLinks = [
   { to: '/#skills', label: 'Skills' },
   { to: '/#contact', label: 'Contact' },
 ]
+
+// The section ids the links point at: '/#projects' -> 'projects'.
+const sectionIds = navLinks.map((link) => link.to.replace('/#', ''))
 
 /*
   The section links include the "/" so they also work from other pages,
@@ -19,6 +23,16 @@ const navLinks = [
 */
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+
+  // Scroll spy: which section is on screen. Only on the home page.
+  const { pathname } = useLocation()
+  const activeId = useActiveSection(sectionIds, pathname === '/')
+
+  // aria-current tells screen readers which link matches the visible section.
+  function linkState(to: string) {
+    const isActive = activeId !== null && to === `/#${activeId}`
+    return { isActive, ariaCurrent: isActive ? ('true' as const) : undefined }
+  }
 
   // Keyboard users can close the open mobile menu with the Escape key.
   useEffect(() => {
@@ -47,16 +61,20 @@ export default function Navbar() {
         <div className="flex items-center gap-3 md:gap-6">
           {/* Desktop links */}
           <ul className="hidden items-center gap-6 md:flex">
-            {navLinks.map((link) => (
-              <li key={link.to}>
-                <Link
-                  to={link.to}
-                  className="text-muted hover:text-brand-700 text-sm font-medium"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const { isActive, ariaCurrent } = linkState(link.to)
+              return (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    aria-current={ariaCurrent}
+                    className={`hover:text-brand-700 text-sm font-medium ${isActive ? 'text-brand-700' : 'text-muted'}`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
             <li>
               <a
                 href={site.resumePath}
@@ -112,17 +130,21 @@ export default function Navbar() {
           id="mobile-menu"
           className="border-line space-y-1 border-t px-4 py-3 md:hidden"
         >
-          {navLinks.map((link) => (
-            <li key={link.to}>
-              <Link
-                to={link.to}
-                onClick={() => setIsOpen(false)}
-                className="hover:bg-surface-muted block rounded-md px-2 py-2 font-medium"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
+          {navLinks.map((link) => {
+            const { isActive, ariaCurrent } = linkState(link.to)
+            return (
+              <li key={link.to}>
+                <Link
+                  to={link.to}
+                  aria-current={ariaCurrent}
+                  onClick={() => setIsOpen(false)}
+                  className={`hover:bg-surface-muted block rounded-md px-2 py-2 font-medium ${isActive ? 'text-brand-700' : ''}`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            )
+          })}
           <li>
             <a
               href={site.resumePath}
