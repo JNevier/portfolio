@@ -1,0 +1,76 @@
+/*
+  Contact link cards.
+  Own CSS file because the grid sizes its own columns (no breakpoints), and
+  each card has hover, focus-visible and active states with motion that
+  respects reduced motion.
+*/
+
+/* As many columns as fit while each card stays at least 14rem wide. */
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  gap: 1rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  height: 100%;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background-color: var(--color-surface);
+  color: var(--color-ink);
+}
+
+/* Single colour from the theme: the icons use currentColor. */
+.contact-card__icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-brand-700);
+}
+
+/* min-width: 0 lets a long email address wrap instead of overflowing. */
+.contact-card__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contact-card__label {
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.contact-card__value {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  border-color: var(--color-brand-700);
+}
+
+.contact-card:hover .contact-card__value {
+  color: var(--color-brand-700);
+}
+
+.contact-card:active {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-card {
+    transition: border-color 150ms ease-out;
+  }
+
+  .contact-card__value {
+    transition: color 150ms ease-out;
+  }
+}
