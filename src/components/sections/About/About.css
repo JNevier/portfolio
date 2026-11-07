@@ -63,15 +63,12 @@
 }
 
 /*
-  The logo JPG has a white background, so it sits on a white tile with a thin
-  border. That keeps it neat in the dark theme too.
+  The logo PNG has a transparent background, so it sits straight on the card
+  in both themes. object-fit: contain keeps the whole logo inside the 56px box.
 */
 .about__school-logo {
   flex-shrink: 0;
   width: 3.5rem;
   height: 3.5rem;
   object-fit: contain;
-  border: 1px solid var(--color-line);
-  border-radius: 0.75rem;
-  background-color: var(--color-media);
 }
