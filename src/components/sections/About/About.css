@@ -2,6 +2,7 @@
   About section layout.
   Own CSS file because it uses grid-template-areas and hand-written
   @media queries: stacked on phones, photo beside the text on larger screens.
+  It also styles the school logo tile in the Education card.
 */
 .about {
   display: grid;
@@ -47,4 +48,30 @@
       'photo bio'
       'photo facts';
   }
+}
+
+/* Education card: school logo on the left, details on the right. */
+.about__school {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+/* min-width: 0 lets long lines wrap instead of squeezing the logo. */
+.about__school-text {
+  min-width: 0;
+}
+
+/*
+  The logo JPG has a white background, so it sits on a white tile with a thin
+  border. That keeps it neat in the dark theme too.
+*/
+.about__school-logo {
+  flex-shrink: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: contain;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  background-color: var(--color-media);
 }

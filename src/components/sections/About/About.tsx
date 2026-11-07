@@ -24,12 +24,25 @@ export default function About() {
             <h3 className="text-brand-700 text-sm font-semibold uppercase tracking-wide">
               Education
             </h3>
-            <p className="mt-2 font-semibold">{education.degree}</p>
-            <p>
-              {education.school}, {education.location}
-            </p>
-            <p className="text-muted mt-1 text-sm">{education.period}</p>
-            <p className="text-muted text-sm">{education.gpa}</p>
+            {/* Logo beside the text; it never shrinks, the text wraps instead. */}
+            <div className="about__school mt-3">
+              {/* Decorative: the school name is written right next to it. */}
+              <img
+                src={education.logo}
+                alt=""
+                width={56}
+                height={56}
+                className="about__school-logo"
+              />
+              <div className="about__school-text">
+                <p className="font-semibold">{education.degree}</p>
+                <p>
+                  {education.school}, {education.location}
+                </p>
+                <p className="text-muted mt-1 text-sm">{education.period}</p>
+                <p className="text-muted text-sm">{education.gpa}</p>
+              </div>
+            </div>
           </div>
 
           <div className="border-line bg-surface-muted rounded-lg border p-5">
