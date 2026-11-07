@@ -1,9 +1,10 @@
 import { site } from '../../../data/site'
+import ContactForm from '../../forms/ContactForm'
 import Section from '../../ui/Section'
 
 /*
-  Contact section. There is no backend, so the email button opens the
-  visitor's own mail app with a `mailto:` link.
+  Contact section. There is no backend, so the email button and the form
+  both open the visitor's own mail app with a `mailto:` link.
 */
 export default function Contact() {
   return (
@@ -60,6 +61,14 @@ export default function Contact() {
         </a>
         . Based in {site.location}.
       </p>
+
+      <div className="mt-12">
+        <h3 className="text-lg font-semibold">Send a message</h3>
+        <p className="text-muted mt-1 mb-6 text-sm">
+          Fill this in and your email app opens with the message ready to send.
+        </p>
+        <ContactForm to={site.email} />
+      </div>
     </Section>
   )
 }
