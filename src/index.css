@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/*
+  All colours and fonts for the site live here.
+  Change a value once and it updates everywhere, because the components only
+  ever use Tailwind classes built from these names (e.g. bg-brand-700, text-muted).
+*/
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, Helvetica, Arial, sans-serif;
+
+  /* Accent colour (teal). brand-700 is the darkest and is safe for text on white. */
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-200: #99f6e4;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+
+  /* Neutrals: page background, cards, borders and text. */
+  --color-surface: #ffffff;
+  --color-surface-muted: #f8fafc;
+  --color-line: #e2e8f0;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Stops the sticky navbar from covering a section heading after an anchor jump. */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  @apply bg-surface text-ink font-sans antialiased;
+}
+
+/* One visible focus style for every keyboard user, on every interactive element. */
+:where(a, button, [tabindex]):focus-visible {
+  @apply outline-brand-700 rounded-sm outline-2 outline-offset-2;
+}
