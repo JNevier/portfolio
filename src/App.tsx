@@ -1,7 +1,10 @@
+import About from './components/About'
+import Certifications from './components/Certifications'
 import Hero from './components/Hero'
 import Highlights from './components/Highlights'
 import Navbar from './components/Navbar'
 import Projects from './components/Projects'
+import Skills from './components/Skills'
 import { site } from './data/site'
 
 const currentYear = new Date().getFullYear()
@@ -22,6 +25,9 @@ export default function App() {
         <Hero />
         <Highlights />
         <Projects />
+        <About />
+        <Skills />
+        <Certifications />
       </main>
 
       <footer className="border-line border-t">
