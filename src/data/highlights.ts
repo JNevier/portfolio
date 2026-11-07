@@ -13,6 +13,17 @@ export type Highlight = {
   period: string
   /** What happens next, while the event is still ongoing. */
   status?: string
+  /**
+   * Optional photo that proves the result, e.g. a plaque or awarding slide.
+   * The file goes in public/recognition/. Shown as a small thumbnail link.
+   */
+  proof?: {
+    src: string
+    /** Describes what the image shows, for screen-reader users. */
+    alt: string
+    /** The visible link text under the thumbnail. */
+    label: string
+  }
 }
 
 export const highlights: Highlight[] = [
@@ -21,6 +32,11 @@ export const highlights: Highlight[] = [
     detail: 'Region IV-A CALABARZON',
     period: 'October 2026',
     status: 'Qualified for the Cluster-Wide Competition (November 2026)',
+    proof: {
+      src: '/recognition/dict-psc11-regional-champion.jpg',
+      alt: 'Awarding slide: Plaque of Recognition for the Champion of the Philippine Startup Challenge 11 Regional Competition (Region IV-A CALABARZON), given 22 October 2026, shown beside the Second Vision, Team Innovision, De La Salle Lipa title',
+      label: 'View plaque of recognition',
+    },
   },
   {
     label: 'Top 3 of 10 Finalists — BAYANI Lab',
