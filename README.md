@@ -5,11 +5,11 @@
 Live site: [reiven-jasa.vercel.app](https://reiven-jasa.vercel.app)
 
 My personal developer portfolio: my projects, skills, certifications, and
-contact details, with a page per project, a light and dark theme, and a
-contact form.
+contact details, with a page per project and a light and dark theme.
 
-Built with **React 19**, **TypeScript**, **Vite**, **Tailwind CSS v4**, and
-**React Router**. Tested with **Vitest** and **React Testing Library**.
+Built with **React 19**, **TypeScript**, **Vite**, **Tailwind CSS v4**,
+**React Router**, and **react-icons**. Tested with **Vitest** and
+**React Testing Library**.
 
 ## Scripts
 
@@ -36,7 +36,8 @@ An unknown project slug also shows the not-found page.
 ## Folder structure
 
 ```
-public/                       static files (favicon, preview image, resume, photos)
+public/                       static files: favicon, preview image, resume, photos,
+                              projects/ (project images), recognition/ (proof images)
 src/
   main.tsx                    starts React
   App.tsx                     providers and routes only
@@ -49,16 +50,16 @@ src/
     sections/                 one per home page section
       Hero/  Highlights/  Projects/  About/  Skills/  Certifications/  Contact/
     projects/
-      ProjectCard/
-    forms/
-      ContactForm/  FormField/
+      ProjectCard/            one card in the Projects grid
+      ProjectMedia/           the 16:9 image frame, used by cards and case studies
     ui/                       small reusable pieces that know nothing about the page
       Section/  Avatar/  ThemeToggle/  Reveal/
+      LogoMark/               the "RJ" mark in the navbar
+      CopyButton/             copies text and announces the result
   pages/                      one folder per route
     Home/  CaseStudy/  NotFound/
   context/                    ThemeContext.ts, ThemeProvider.tsx
   hooks/                      useTheme, useDocumentTitle, useActiveSection, useInView
-  lib/                        pure helpers: validateContact, buildMailto
   data/                       all the text content of the site
   test/                       test setup and the IntersectionObserver mock
 .github/workflows/ci.yml      lint, test, and build on every push to main
@@ -72,15 +73,18 @@ Each component folder holds `Name.tsx`, `index.ts` (so imports can say
 
 Tests sit next to the code they test (`Section.test.tsx` beside `Section.tsx`)
 and use Vitest's `describe` / `it` / `expect` with React Testing Library.
+There are 45 tests in 14 files.
 
-- **Pure helpers** (`src/lib`) are tested with plain inputs and outputs.
 - **Components** are tested the way a visitor uses them: find elements by
-  role and label, click and type with `user-event`, then check what is on
-  screen (for example, that the first invalid form field gets focus).
+  role and label, click with `user-event`, then check what is on screen (for
+  example, that the course list opens, or that "Copied" is announced).
+- **Components that read a data file** accept the same data as an optional
+  prop, so a test can pass its own small list (see `Certifications` and
+  `Highlights`).
 - **Routes** are tested with `MemoryRouter`, which lets a test start at any URL.
 - **Browser APIs jsdom lacks** are replaced with fakes: `matchMedia`,
-  `IntersectionObserver` (`src/test/mockIntersectionObserver.ts`), and
-  scrolling (`src/test/setup.ts`).
+  `IntersectionObserver` (`src/test/mockIntersectionObserver.ts`),
+  scrolling (`src/test/setup.ts`), and the clipboard (`vi.spyOn`).
 
 ## Where things go
 
@@ -91,10 +95,10 @@ Adding a component? Ask: does it know about this site's content?
 | `components/layout/` | The page frame around every page | `Navbar` |
 | `components/sections/` | A section of the home page | `Skills` |
 | `components/projects/` | Pieces that belong to projects | `ProjectCard` |
-| `components/forms/` | Form pieces | `FormField` |
 | `components/ui/` | Reusable, knows nothing about the page | `Reveal` |
 | `pages/` | A whole route | `CaseStudy` |
-| `hooks/`, `context/`, `lib/` | Hooks, React context, pure functions (never inside a component folder) | `useTheme` |
+| `hooks/`, `context/` | Hooks and React context (never inside a component folder) | `useTheme` |
+| `lib/` (create it when needed) | Pure helper functions | — |
 
 **When to add a `.css` file:** only when Tailwind classes cannot express it
 cleanly: `::before` / `::after`, `@keyframes` or multi-step transitions,
@@ -106,25 +110,88 @@ CSS file.
 - BEM class names prefixed with the component: `.navbar`, `.navbar__link`,
   `.navbar__link--active`. No global element selectors in component CSS.
 - Colours and fonts only from the tokens, e.g. `var(--color-brand-700)`.
-  Never hex values, so the dark theme works automatically.
+  Never hex values, so the dark theme works automatically. The one constant
+  token is `--color-media`: the always-white panel behind project logos and
+  illustrations, which is not changed in the dark theme.
 - Plain CSS, no `@apply`. Motion goes inside
   `@media (prefers-reduced-motion: no-preference)`.
 - Global styles live only in `src/index.css`.
+
+## Card grids: how many columns
+
+Card grids choose their column count from the **smallest comfortable card
+width**, not from the device: `columns = floor(container width / minimum card width)`.
+The grid works this out by itself:
+
+```css
+grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+gap: 1.5rem;
+```
+
+- Minimum widths: about `17rem` for text cards with tech tags (Projects),
+  `14rem` for short link cards (Contact), `10rem` for image tiles.
+- `min(100%, …)` prevents overflow on very narrow phones.
+- `auto-fill` keeps one or two cards at a normal size; `auto-fit` would
+  stretch them across the row.
+- With the 64rem content width, Projects shows 1 column on phones, 2 on small
+  tablets, and 3 from about 912px wide.
+- Use `@media` breakpoints only for whole-section layouts like the About
+  grid, never for card grids.
 
 ## How to update this portfolio later
 
 Most updates are data edits in `src/data/`. Layout code should not need to change.
 
-| To change | Edit |
-|---|---|
-| Name, bio, email, links, photo, resume, education | `site.ts` |
-| Competition results | `highlights.ts` |
-| Projects and their case studies | `projects.ts` (add `slug`, and optionally `caseStudy` with `subtitle` and `overview`) |
-| Skills | `skills.ts` (keep it matching the resume) |
-| Certifications and seminars | `certifications.ts` |
+| To change | Edit | Fields worth knowing |
+|---|---|---|
+| Name, bio, email, links, photo, resume | `site.ts` | `phone` and `phoneHref` (shown in Contact only), `links.linkedin` (`null` hides the card) |
+| Education | `site.ts` (`education`) | `logo`: the school logo next to the school name |
+| Competition results | `highlights.ts` | `proof`: an optional thumbnail link to a proof image |
+| Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `imageFit`, `caseStudy` |
+| Skills | `skills.ts` | Keep it matching the resume |
+| Certifications and seminars | `certifications.ts` | `courses`: the course list inside a certificate |
 
 To hide a project, wrap its entry in `projects.ts` in `/* ... */`. Each
 project's `slug` gives it a case study page at `/projects/<slug>`.
+
+### Add a course credential link
+
+In `certifications.ts`, add `credentialUrl` to the course:
+
+```ts
+{ name: 'React Basics', credentialUrl: 'https://coursera.org/share/...' },
+```
+
+A "View credential" link appears next to that course only. Courses without a
+URL keep showing the name alone.
+
+### Add a project
+
+1. Put its image in `public/projects/`, e.g. `public/projects/my-app.png`.
+2. Add an entry to `projects.ts` with a unique `slug`, a short `summary`,
+   `role`, `period`, `status`, `stack`, `bullets`, and `links`.
+3. Set `screenshot: '/projects/my-app.png'` and a `screenshotAlt` that
+   describes what the image really shows.
+4. Logos and illustrations: leave `imageFit` out (it defaults to `'contain'`,
+   no cropping). Real screenshots or photos: `imageFit: 'cover'` fills the frame.
+
+The card shows the image, title, status, summary, role, and stack. The
+bullets, period, team credit, and links appear on the case-study page.
+
+### Add a proof image to a highlight
+
+1. Put the image in `public/recognition/`. A 16:9 image fits the thumbnail best.
+2. In `highlights.ts`, add to that entry:
+
+```ts
+proof: {
+  src: '/recognition/my-award.jpg',
+  alt: 'What the image shows, in one sentence',
+  label: 'View certificate',
+},
+```
+
+The thumbnail opens the full image in a new tab.
 
 **New feature from a course:** create a `feat/...` branch, put the component in
 the right category folder, add a `.css` file only if it meets the rules above,
@@ -139,9 +206,11 @@ practice page for data structures and algorithms.
 
 | File | Used by |
 |---|---|
-| `public/resume.pdf` | The Resume buttons (`resumePath` in `site.ts`) |
+| `public/resume.pdf` | The navbar Resume button (`resumePath` in `site.ts`) |
 | `public/profile.jpg` | The photo in the Hero and About sections (`photo` in `site.ts`) |
+| `public/de_la_salle_lipa_logo.jpg` | The Education card (`education.logo` in `site.ts`) |
 | `public/projects/*.png` | Each project's `screenshot` in `projects.ts` |
+| `public/recognition/*.jpg` | Proof thumbnails (`proof.src` in `highlights.ts`) |
 
 To replace a file, keep the same name, or update the path in `src/data`. Paths
 start with `/` so they work on every page, including `/projects/...`.
@@ -153,15 +222,15 @@ start with `/` so they work on every page, including `/projects/...`.
 2. `vercel.json` rewrites every path to `/index.html`. Without it, refreshing
    a page like `/projects/sobre-pos` would return a 404, because that file does
    not exist on the server; React Router handles the URL in the browser instead.
-3. After the first deploy, open `index.html` and replace `/og-image.png` in the
-   `og:image` tag with the full URL (e.g. `https://<your-site>.vercel.app/og-image.png`),
-   and add an `og:url` tag. Link previews need absolute URLs.
+3. Every push to `main` redeploys the site. The `og:image` and `og:url` tags
+   in `index.html` use the full live URL, because link previews need absolute
+   URLs. Update both if the domain changes.
 
 ## Development workflow
 
 - One branch per feature, named by type: `feat/...`, `fix/...`, `chore/...`,
   `docs/...`, `refactor/...`.
-- Commit messages follow Conventional Commits: `feat(contact): add accessible contact form`.
+- Commit messages follow Conventional Commits: `feat(contact): add copy email button`.
 - Tests are committed before or with the code they test.
 - Before merging: `npm run lint`, `npm test`, and `npm run build` must pass.
 - Merge with `--no-ff` so each feature stays visible as a merge in the history,
@@ -176,6 +245,7 @@ git add src/components/ui/MyThing
 git commit -m "feat(ui): add my thing"
 git switch main
 git merge --no-ff feat/my-feature -m "feat: merge my feature"
+git push origin main
 ```
 
 ## Code style
@@ -193,6 +263,6 @@ git merge --no-ff feat/my-feature -m "feat: merge my feature"
   previews see the static `index.html` first, so every page shares the same
   title, description, and preview image until JavaScript runs. A static or
   server-rendered site would do better for SEO and per-page previews.
-- The contact form has no backend. It opens the visitor's own email app with a
-  `mailto:` link, so it does nothing if they have no email app set up. The
-  plain email address stays visible as a fallback.
+- There is no backend. The Email card opens the visitor's own email app with a
+  `mailto:` link, which does nothing if they have no email app set up. The
+  address stays visible, and the "Copy email" button copies it as a fallback.
