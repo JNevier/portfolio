@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import ProjectMedia from '../../components/projects/ProjectMedia'
 import { projects } from '../../data/projects'
 import type { Project } from '../../data/projects'
 import { site } from '../../data/site'
@@ -63,10 +64,9 @@ function CaseStudyArticle({ project }: { project: Project }) {
       </header>
 
       {project.screenshot && (
-        <img
-          src={project.screenshot}
-          alt={project.screenshotAlt}
-          className="border-line mt-8 aspect-video w-full rounded-lg border object-cover"
+        <ProjectMedia
+          project={project}
+          className="border-line mt-8 rounded-lg border"
         />
       )}
 

@@ -1,6 +1,7 @@
 import { projects } from '../../../data/projects'
 import ProjectCard from '../../projects/ProjectCard'
 import Section from '../../ui/Section'
+import './Projects.css'
 
 /* The Projects section: one card per entry in src/data/projects.ts. */
 export default function Projects() {
@@ -11,9 +12,9 @@ export default function Projects() {
       intro="Selected work from school and team projects, with my role on each."
       muted
     >
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="projects__grid">
         {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+          <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
     </Section>

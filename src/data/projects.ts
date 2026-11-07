@@ -26,7 +26,7 @@ export type Project = {
   /** Used in the page URL: /projects/<slug>. Lowercase words joined by dashes. */
   slug: string
   title: string
-  /** One line under the title. */
+  /** One line under the title, shown on the card and kept short. */
   summary: string
   /** My role on the project. */
   role: string
@@ -46,6 +46,12 @@ export type Project = {
   screenshot: string | null
   /** Describes the screenshot for screen-reader users. */
   screenshotAlt: string
+  /**
+   * How the image fills its 16:9 frame. 'contain' (the default) shows the
+   * whole image with no cropping, which suits logos and illustrations.
+   * 'cover' fills the frame and may crop the edges, which suits photos.
+   */
+  imageFit?: 'contain' | 'cover'
   caseStudy?: CaseStudy
 }
 
@@ -65,8 +71,9 @@ export const projects: Project[] = [
       'The device sustained 29.6 FPS with both AI models running and 3.64+ hours of battery life, evaluated by 25 legally blind participants (mean SUS: 59.1).',
     ],
     links: [],
+    // Replace with a real screenshot or photo later
     screenshot: '/projects/second-vision.png',
-    screenshotAlt: 'The Second Vision smart glasses prototype',
+    screenshotAlt: 'Team Innovision logo, the team behind Second Vision',
     caseStudy: {
       subtitle: 'Smart Glasses for the Visually Impaired',
       overview: [
@@ -104,8 +111,10 @@ export const projects: Project[] = [
         href: 'https://github.com/JNevier/sobre-project-backend',
       },
     ],
+    // Replace with a real screenshot or photo later
     screenshot: '/projects/sobre-pos.png',
-    screenshotAlt: 'The Sobre POS checkout screen',
+    screenshotAlt:
+      'Illustration of a checklist and stacked boxes, representing sales and inventory',
     caseStudy: {
       subtitle: 'Point-of-Sale Web Application',
       overview: [
@@ -120,7 +129,7 @@ export const projects: Project[] = [
     summary: 'A reserve-a-table web app from the Meta Front-End Capstone.',
     role: 'Front-End Developer',
     period: '2026',
-    status: 'Completed',
+    status: 'In progress',
     stack: ['React', 'JavaScript', 'HTML5', 'CSS3'],
     bullets: [
       'Built a table reservation flow for a restaurant as the Meta Front-End Developer capstone project.',
