@@ -6,12 +6,7 @@ import './Projects.css'
 /* The Projects section: one card per entry in src/data/projects.ts. */
 export default function Projects() {
   return (
-    <Section
-      id="projects"
-      title="Projects"
-      intro="Selected work from school and team projects, with my role on each."
-      muted
-    >
+    <Section id="projects" title="Projects" muted>
       <div className="projects__grid">
         {projects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
