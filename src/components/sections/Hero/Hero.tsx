@@ -1,5 +1,5 @@
-import { site } from '../data/site'
-import Avatar from './Avatar'
+import { site } from '../../../data/site'
+import Avatar from '../../ui/Avatar'
 
 /*
   Top of the page: who I am in one screen, with the three actions a recruiter

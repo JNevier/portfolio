@@ -1,4 +1,4 @@
-import { site } from '../data/site'
+import { site } from '../../../data/site'
 
 type AvatarProps = {
   /** Tailwind size classes, e.g. "h-40 w-40". */

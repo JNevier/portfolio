@@ -1,5 +1,5 @@
-import { certifications, trainings } from '../data/certifications'
-import Section from './Section'
+import { certifications, trainings } from '../../../data/certifications'
+import Section from '../../ui/Section'
 
 /* Certifications & Training: certificates first, then seminars. */
 export default function Certifications() {
