@@ -28,7 +28,8 @@ describe('Certifications', () => {
 
     const names = within(details)
       .getAllByRole('listitem')
-      .map((item) => item.textContent)
+      // The first text in each item is the course name; a link may follow it.
+      .map((item) => item.firstChild?.textContent)
     expect(names).toEqual(certifications[0].courses?.map((course) => course.name))
     expect(names).toHaveLength(9)
   })
