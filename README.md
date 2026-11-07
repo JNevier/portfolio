@@ -123,8 +123,8 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 | Skills | `skills.ts` (keep it matching the resume) |
 | Certifications and seminars | `certifications.ts` |
 
-To show Little Lemon, remove the comment markers around its entry in
-`projects.ts`. It already has a slug, so its case study page works straight away.
+To hide a project, wrap its entry in `projects.ts` in `/* ... */`. Each
+project's `slug` gives it a case study page at `/projects/<slug>`.
 
 **New feature from a course:** create a `feat/...` branch, put the component in
 the right category folder, add a `.css` file only if it meets the rules above,
@@ -135,14 +135,16 @@ calling a public API, data-fetching hooks, filtering the project list, video
 or audio media, Sass, higher-order components and render props, and a
 practice page for data structures and algorithms.
 
-## Files to add
+## Images and files
 
-| File | Then |
+| File | Used by |
 |---|---|
-| `public/resume.pdf` | Nothing else; the Resume buttons already point to it |
-| `public/profile.jpg` | Set `photo: '/profile.jpg'` in `src/data/site.ts` |
-| `public/projects/sobre-pos.png` | Set `screenshot` for Sobre POS in `src/data/projects.ts` |
-| `public/projects/second-vision.png` | Set `screenshot` for Second Vision in `src/data/projects.ts` |
+| `public/resume.pdf` | The Resume buttons (`resumePath` in `site.ts`) |
+| `public/profile.jpg` | The photo in the Hero and About sections (`photo` in `site.ts`) |
+| `public/projects/*.png` | Each project's `screenshot` in `projects.ts` |
+
+To replace a file, keep the same name, or update the path in `src/data`. Paths
+start with `/` so they work on every page, including `/projects/...`.
 
 ## Deploy (Vercel)
 
