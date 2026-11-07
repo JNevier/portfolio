@@ -24,7 +24,7 @@ export default function Avatar({ className = 'h-40 w-40' }: AvatarProps) {
     <div
       role="img"
       aria-label={`${site.name} initials`}
-      className={`bg-brand-700 flex items-center justify-center rounded-full text-3xl font-bold tracking-wide text-white select-none ${className}`}
+      className={`bg-brand-700 flex items-center justify-center rounded-full text-3xl font-bold tracking-wide text-on-brand select-none ${className}`}
     >
       {site.initials}
     </div>

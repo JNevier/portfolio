@@ -13,6 +13,26 @@
     <meta name="theme-color" content="#0f766e" />
 
     <!--
+      Sets the saved (or system) theme before the page paints, so a dark-mode
+      visitor never sees a flash of the light theme. ThemeProvider takes over
+      once React has loaded. Uses the same "theme" key as src/context/ThemeContext.ts.
+    -->
+    <script>
+      try {
+        var saved = localStorage.getItem('theme')
+        var theme =
+          saved === 'light' || saved === 'dark'
+            ? saved
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light'
+        document.documentElement.dataset.theme = theme
+      } catch (e) {
+        // Storage blocked: the page simply starts in the light theme.
+      }
+    </script>
+
+    <!--
       Open Graph / social previews (how the link looks when shared).
       After deploying, replace "/og-image.png" with the full URL,
       e.g. https://your-site.vercel.app/og-image.png, and add an og:url tag.

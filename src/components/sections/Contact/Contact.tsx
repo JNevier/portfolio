@@ -16,7 +16,7 @@ export default function Contact() {
       <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
         <a
           href={`mailto:${site.email}`}
-          className="bg-brand-700 hover:bg-brand-800 rounded-md px-5 py-3 text-center font-semibold text-white"
+          className="bg-brand-700 hover:bg-brand-800 rounded-md px-5 py-3 text-center font-semibold text-on-brand"
         >
           Email me
         </a>

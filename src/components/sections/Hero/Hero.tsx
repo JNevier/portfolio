@@ -28,7 +28,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
             <a
               href="#projects"
-              className="bg-brand-700 hover:bg-brand-800 rounded-md px-5 py-3 text-center font-semibold text-white"
+              className="bg-brand-700 hover:bg-brand-800 rounded-md px-5 py-3 text-center font-semibold text-on-brand"
             >
               View Projects
             </a>

@@ -16,6 +16,8 @@
   --color-brand-600: #0d9488;
   --color-brand-700: #0f766e;
   --color-brand-800: #115e59;
+  /* Text that sits on a brand-700 or brand-800 background (buttons, avatar). */
+  --color-on-brand: #ffffff;
 
   /* Neutrals: page background, cards, borders and text. */
   --color-surface: #ffffff;
@@ -23,6 +25,31 @@
   --color-line: #e2e8f0;
   --color-ink: #0f172a;
   --color-muted: #475569;
+}
+
+/*
+  Dark theme: the same token names with dark-mode values. ThemeProvider sets
+  <html data-theme="dark">, and every Tailwind class and component CSS file
+  picks the new values up automatically because they all read these variables.
+  Each token keeps its role: brand-700 is still the readable accent text,
+  brand-50 is still the soft tinted background. All text pairs pass WCAG AA.
+*/
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-brand-50: #0c2b2e;
+  --color-brand-100: #134e4a;
+  --color-brand-200: #115e59;
+  --color-brand-600: #14b8a6;
+  --color-brand-700: #2dd4bf;
+  --color-brand-800: #5eead4;
+  --color-on-brand: #042f2e;
+
+  --color-surface: #0f172a;
+  --color-surface-muted: #1e293b;
+  --color-line: #334155;
+  --color-ink: #f1f5f9;
+  --color-muted: #a3b0c2;
 }
 
 html {
