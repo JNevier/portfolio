@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import Reveal from '../Reveal'
 
 type SectionProps = {
   /** Used as the anchor target for the navbar links, e.g. #projects */
@@ -29,16 +30,19 @@ export default function Section({
       aria-labelledby={`${id}-heading`}
       className={muted ? 'bg-surface-muted' : 'bg-surface'}
     >
-      <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
-        <h2
-          id={`${id}-heading`}
-          className="text-2xl font-bold tracking-tight sm:text-3xl"
-        >
-          {title}
-        </h2>
-        {intro && <p className="text-muted mt-3 max-w-2xl">{intro}</p>}
-        <div className="mt-8">{children}</div>
-      </div>
+      {/* The content fades in the first time it scrolls into view. */}
+      <Reveal>
+        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-20">
+          <h2
+            id={`${id}-heading`}
+            className="text-2xl font-bold tracking-tight sm:text-3xl"
+          >
+            {title}
+          </h2>
+          {intro && <p className="text-muted mt-3 max-w-2xl">{intro}</p>}
+          <div className="mt-8">{children}</div>
+        </div>
+      </Reveal>
     </section>
   )
 }
