@@ -10,7 +10,21 @@ export type ProjectLink = {
   href: string
 }
 
+/**
+ * Extra text for the project's own page (/projects/<slug>).
+ * Every block is optional: the page only shows the blocks that are filled in.
+ * Only use facts that are already on the resume.
+ */
+export type CaseStudy = {
+  /** Longer name shown under the title, e.g. "Point-of-Sale Web Application". */
+  subtitle?: string
+  /** One or more short paragraphs that introduce the project. */
+  overview?: string[]
+}
+
 export type Project = {
+  /** Used in the page URL: /projects/<slug>. Lowercase words joined by dashes. */
+  slug: string
   title: string
   /** One line under the title. */
   summary: string
@@ -32,10 +46,12 @@ export type Project = {
   screenshot: string | null
   /** Describes the screenshot for screen-reader users. */
   screenshotAlt: string
+  caseStudy?: CaseStudy
 }
 
 export const projects: Project[] = [
   {
+    slug: 'second-vision',
     title: 'Second Vision',
     summary: 'Smart glasses that help visually impaired users detect hazards.',
     role: 'IoT & QA Engineer',
@@ -52,8 +68,16 @@ export const projects: Project[] = [
     // TODO: add a photo or screenshot to public/projects/second-vision.png, then set this to '/projects/second-vision.png'.
     screenshot: null,
     screenshotAlt: 'The Second Vision smart glasses prototype',
+    caseStudy: {
+      subtitle: 'Smart Glasses for the Visually Impaired',
+      overview: [
+        'Second Vision is an offline wearable assistive device for visually impaired users. It detects hazards and delivers audio and vibration alerts.',
+        'It is my capstone/thesis, built as a team project. My role was IoT & QA Engineer: the C++ firmware for motor control and turn detection, and the technical test plan.',
+      ],
+    },
   },
   {
+    slug: 'sobre-pos',
     title: 'Sobre POS',
     summary: 'A point-of-sale web application for in-store sales and inventory.',
     role: 'Full-Stack Developer',
@@ -84,6 +108,12 @@ export const projects: Project[] = [
     // TODO: add a screenshot to public/projects/sobre-pos.png, then set this to '/projects/sobre-pos.png'.
     screenshot: null,
     screenshotAlt: 'The Sobre POS checkout screen',
+    caseStudy: {
+      subtitle: 'Point-of-Sale Web Application',
+      overview: [
+        'Sobre POS is a point-of-sale web application. As a Full-Stack Developer, I worked on both sides: the POS screen, cart, and checkout in React, and the Express API endpoints and Supabase database function behind them.',
+      ],
+    },
   },
 
   /*
@@ -91,6 +121,7 @@ export const projects: Project[] = [
     around this entry to show it on the site.
 
   {
+    slug: 'little-lemon',
     title: 'Little Lemon',
     summary: 'A reserve-a-table web app from the Meta Front-End Capstone.',
     role: 'Front-End Developer',

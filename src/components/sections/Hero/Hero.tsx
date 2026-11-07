@@ -7,7 +7,7 @@ import Avatar from '../../ui/Avatar'
 */
 export default function Hero() {
   return (
-    <section id="top" aria-labelledby="hero-heading" className="bg-surface">
+    <section aria-labelledby="hero-heading" className="bg-surface">
       <div className="mx-auto flex max-w-5xl flex-col-reverse items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 md:flex-row md:justify-between">
         <div className="max-w-2xl text-center md:text-left">
           <p className="text-brand-700 text-sm font-semibold">

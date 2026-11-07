@@ -1,0 +1,136 @@
+import type { ReactNode } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { projects } from '../../data/projects'
+import type { Project } from '../../data/projects'
+import { site } from '../../data/site'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
+import NotFound from '../NotFound'
+
+/*
+  /projects/:slug — one page per project.
+  `useParams` reads the slug from the URL. An unknown slug shows NotFound.
+*/
+export default function CaseStudy() {
+  const { slug } = useParams()
+  const project = projects.find((item) => item.slug === slug)
+
+  if (!project) return <NotFound />
+
+  return <CaseStudyArticle project={project} />
+}
+
+/* A titled block inside the case study. */
+function Block({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="border-line border-t pt-8">
+      <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+      <div className="mt-4">{children}</div>
+    </section>
+  )
+}
+
+/*
+  The page itself. Only the blocks that have content are rendered,
+  so a project with less information simply shows a shorter page.
+*/
+function CaseStudyArticle({ project }: { project: Project }) {
+  useDocumentTitle(`${project.title} case study — ${site.name}`)
+
+  const { caseStudy } = project
+
+  return (
+    <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+      <Link
+        to="/#projects"
+        className="text-brand-700 hover:text-brand-800 text-sm font-semibold"
+      >
+        <span aria-hidden="true">← </span>Back to all projects
+      </Link>
+
+      <header className="mt-6">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          {project.title}
+        </h1>
+        {caseStudy?.subtitle && (
+          <p className="text-muted mt-2 text-lg">{caseStudy.subtitle}</p>
+        )}
+        <p className="mt-4 flex flex-wrap items-center gap-2 text-sm">
+          <span className="bg-surface-muted border-line text-muted rounded-full border px-2.5 py-0.5 text-xs font-medium">
+            {project.status}
+          </span>
+          <span className="text-muted">{project.period}</span>
+        </p>
+      </header>
+
+      {project.screenshot && (
+        <img
+          src={project.screenshot}
+          alt={project.screenshotAlt}
+          className="border-line mt-8 aspect-video w-full rounded-lg border object-cover"
+        />
+      )}
+
+      <div className="mt-10 space-y-10">
+        {caseStudy?.overview && caseStudy.overview.length > 0 && (
+          <Block title="Overview">
+            <div className="space-y-4 leading-relaxed">
+              {caseStudy.overview.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </Block>
+        )}
+
+        <Block title="My role">
+          <p>
+            <span className="font-semibold">{project.role}</span> ·{' '}
+            {project.period}
+          </p>
+          {project.team && <p className="text-muted mt-1">{project.team}</p>}
+        </Block>
+
+        <Block title="What I worked on">
+          <ul className="list-disc space-y-3 pl-5 leading-relaxed">
+            {project.bullets.map((bullet) => (
+              <li key={bullet}>{bullet}</li>
+            ))}
+          </ul>
+        </Block>
+
+        <Block title="Tech stack">
+          <ul className="flex flex-wrap gap-2">
+            {project.stack.map((tag) => (
+              <li
+                key={tag}
+                className="bg-brand-50 text-brand-800 rounded-md px-2 py-1 text-sm font-medium"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </Block>
+
+        {project.links.length > 0 && (
+          <Block title="Links">
+            <ul className="flex flex-wrap gap-4">
+              {project.links.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-700 hover:text-brand-800 font-semibold underline-offset-4 hover:underline"
+                  >
+                    {link.label}
+                    <span className="sr-only"> (opens in a new tab)</span>
+                    <span aria-hidden="true"> ↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Block>
+        )}
+      </div>
+    </article>
+  )
+}
