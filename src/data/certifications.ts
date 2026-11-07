@@ -31,17 +31,17 @@ export const certifications: Certification[] = [
     issuer: 'Coursera',
     year: '2026',
     credentialUrl: 'https://coursera.org/share/08e90ef9701ae512bd1643f9aa7936aa',
-    // Add each course's link later as `credentialUrl: '...'`.
+    // Each course links to its own Coursera credential.
     courses: [
-      { name: 'Introduction to Front-End Development' },
-      { name: 'Version Control' },
-      { name: 'HTML and CSS in Depth' },
-      { name: 'Programming with JavaScript' },
-      { name: 'React Basics' },
-      { name: 'Advanced React' },
-      { name: 'Principles of UX/UI Design' },
-      { name: 'Front-End Developer Capstone' },
-      { name: 'Coding Interview Preparation' },
+      { name: 'Introduction to Front-End Development', credentialUrl: 'https://coursera.org/share/b4d0b4d7cdaa5a59d11896af55af4ba5' },
+      { name: 'Programming with JavaScript', credentialUrl: 'https://coursera.org/share/8e9cb1231254ff5d60139b80fbaa325a' },
+      { name: 'Version Control', credentialUrl: 'https://coursera.org/share/8bdd7f626e65e7d94ff462f2eec01422' },
+      { name: 'HTML and CSS in Depth', credentialUrl: 'https://coursera.org/share/063845ad01914968cbf39f5197f49a3a' },
+      { name: 'React Basics', credentialUrl: 'https://coursera.org/share/0de258bc3388462daedcf98626704b39' },
+      { name: 'Advanced React', credentialUrl: 'https://coursera.org/share/767d8a39db800d04cdb801b596e1cb06' },
+      { name: 'Principles of UX/UI Design', credentialUrl: 'https://coursera.org/share/8eeac8da2bbf54a06683325833f1965a' },
+      { name: 'Front-End Developer Capstone', credentialUrl: 'https://coursera.org/share/0c1663bc6f55750127db3ead8c7047ef' },
+      { name: 'Coding Interview Preparation', credentialUrl: 'https://coursera.org/share/8e9cb1231254ff5d60139b80fbaa325a' },
     ],
   },
 ]
