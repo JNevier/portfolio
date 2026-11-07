@@ -1,0 +1,69 @@
+/*
+  Contact form layout.
+  Own CSS file because it uses grid-template-areas, a hand-written @media
+  query, and a @keyframes fade for the confirmation message.
+*/
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-areas:
+    'name'
+    'email'
+    'message'
+    'actions';
+  max-width: 42rem;
+}
+
+/* From tablet width up, name and email sit side by side. */
+@media (min-width: 640px) {
+  .contact-form {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'name email'
+      'message message'
+      'actions actions';
+  }
+}
+
+.contact-form__name {
+  grid-area: name;
+}
+
+.contact-form__email {
+  grid-area: email;
+}
+
+.contact-form__message {
+  grid-area: message;
+}
+
+.contact-form__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.contact-form__status {
+  flex: 1 1 16rem;
+  color: var(--color-brand-800);
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-form__status:not(:empty) {
+    animation: contact-form-fade-in 250ms ease-out;
+  }
+}
+
+@keyframes contact-form-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
