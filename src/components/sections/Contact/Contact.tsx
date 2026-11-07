@@ -42,13 +42,6 @@ export default function Contact() {
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         )}
-        <a
-          href={site.resumePath}
-          download
-          className="border-line bg-surface hover:bg-surface-muted rounded-md border px-5 py-3 text-center font-semibold"
-        >
-          Download Resume
-        </a>
       </div>
 
       <p className="text-muted mt-6 text-sm">

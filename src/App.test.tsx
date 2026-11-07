@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import App, { AppRoutes } from './App'
@@ -24,6 +24,21 @@ describe('App', () => {
     const headings = screen.getAllByRole('heading', { level: 1 })
     expect(headings).toHaveLength(1)
     expect(headings[0]).toHaveTextContent(site.name)
+  })
+
+  it('has exactly one resume link on the home page, in the navbar', () => {
+    render(<App />)
+
+    const resumeLinks = document.querySelectorAll(
+      `a[href="${site.resumePath}"]`,
+    )
+    expect(resumeLinks).toHaveLength(1)
+    expect(
+      within(screen.getByRole('navigation', { name: 'Main' })).getByRole(
+        'link',
+        { name: 'Resume' },
+      ),
+    ).toBe(resumeLinks[0])
   })
 })
 
