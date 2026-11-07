@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { site } from '../../../data/site'
 import { useActiveSection } from '../../../hooks/useActiveSection'
+import LogoMark from '../../ui/LogoMark'
 import ThemeToggle from '../../ui/ThemeToggle'
 import './Navbar.css'
 
@@ -54,9 +55,17 @@ export default function Navbar() {
         aria-label="Main"
         className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6"
       >
-        {/* NavLink adds aria-current="page" automatically while on the home page. */}
-        <NavLink to="/" end className="font-bold tracking-tight">
-          {site.name}
+        {/*
+          NavLink adds aria-current="page" automatically while on the home page.
+          The logo is decorative, so aria-label gives the link its spoken name.
+        */}
+        <NavLink
+          to="/"
+          end
+          aria-label={`${site.name}, home`}
+          className="rounded-md"
+        >
+          <LogoMark />
         </NavLink>
 
         <div className="flex items-center gap-3 md:gap-6">

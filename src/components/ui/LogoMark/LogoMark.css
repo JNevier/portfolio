@@ -1,0 +1,23 @@
+/*
+  The "RJ" logo mark.
+  Own CSS file because SVG shapes are coloured with `fill`, which Tailwind
+  colour classes do not set on <rect> and <text>. Reading the tokens here
+  means the mark follows the light and dark theme automatically.
+*/
+.logo-mark {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+}
+
+.logo-mark__tile {
+  fill: var(--color-brand-700);
+}
+
+.logo-mark__text {
+  fill: var(--color-on-brand);
+  font-family: var(--font-sans);
+  font-size: 30px;
+  font-weight: 700;
+}
