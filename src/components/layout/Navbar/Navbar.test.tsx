@@ -1,6 +1,7 @@
 import { render, screen, within } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
+import { site } from '../../../data/site'
 import ThemeProvider from '../../../context/ThemeProvider'
 import Navbar from './Navbar'
 
@@ -37,20 +38,29 @@ describe('Navbar', () => {
     )
   })
 
+  it('shows the logo mark in a home link named after me, not my name as text', () => {
+    renderNavbarAt('/')
+    const nav = screen.getByRole('navigation', { name: 'Main' })
+    const home = within(nav).getByRole('link', { name: `${site.name}, home` })
+
+    expect(home).toHaveAttribute('href', '/')
+    expect(home.querySelector('svg')).toBeInTheDocument()
+    expect(within(nav).queryByText(site.name)).not.toBeInTheDocument()
+  })
+
   it('marks the home link as the current page on the home route', () => {
     renderNavbarAt('/')
 
-    expect(screen.getByRole('link', { name: /reiven o\. jasa/i })).toHaveAttribute(
-      'aria-current',
-      'page',
-    )
+    expect(
+      screen.getByRole('link', { name: `${site.name}, home` }),
+    ).toHaveAttribute('aria-current', 'page')
   })
 
   it('does not mark the home link as current on other routes', () => {
     renderNavbarAt('/projects/sobre-pos')
 
     expect(
-      screen.getByRole('link', { name: /reiven o\. jasa/i }),
+      screen.getByRole('link', { name: `${site.name}, home` }),
     ).not.toHaveAttribute('aria-current')
   })
 })
