@@ -10,18 +10,6 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    title: 'Programming Languages',
-    items: [
-      'JavaScript (ES6+)',
-      'TypeScript',
-      'Python',
-      'C++',
-      'SQL',
-      'HTML5',
-      'CSS3',
-    ],
-  },
-  {
     title: 'Web Development',
     items: [
       'React (Hooks, Context API, React Router)',
@@ -31,6 +19,18 @@ export const skillGroups: SkillGroup[] = [
       'Express',
       'REST APIs',
       'Responsive Design',
+    ],
+  },
+  {
+    title: 'Programming Languages',
+    items: [
+      'JavaScript (ES6+)',
+      'TypeScript',
+      'Python',
+      'C++',
+      'SQL',
+      'HTML5',
+      'CSS3',
     ],
   },
   {
