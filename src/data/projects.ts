@@ -40,7 +40,7 @@ export type Project = {
   /** Only real links. Leave a link out instead of adding a dead one. */
   links: ProjectLink[]
   /**
-   * Path to a screenshot in public/, e.g. '/projects/sobre-pos.png'.
+   * Path to a screenshot in public/, e.g. '/projects/sobre-pos.webp'.
    * Leave as null to show a plain placeholder box instead.
    */
   screenshot: string | null
@@ -118,9 +118,8 @@ export const projects: Project[] = [
       },
     ],
     // A real screenshot. 'contain' (the default) shows it whole, without cropping.
-    screenshot: '/projects/sobre-pos.png',
-    screenshotAlt:
-      'The Sobre log-in screen, with a sales and inventory illustration beside the log-in form',
+    screenshot: '/projects/sobre-pos.webp',
+    screenshotAlt: 'The Sobre POS log-in screen',
     caseStudy: {
       subtitle: 'Point-of-Sale Web Application',
       overview: [
