@@ -51,11 +51,13 @@ src/
       Hero/  Highlights/  Projects/  About/  Skills/  Certifications/  Contact/
     projects/
       ProjectCard/            one card in the Projects grid
-      ProjectMedia/           the 16:9 image frame, used by cards and case studies
+      ProjectMedia/           the 16:9 image frame, used by cards, case studies, and the gallery
+      Accomplishments/        result cards on a case study (stat above text)
+      Gallery/                optional project photos on a case study
     ui/                       small reusable pieces that know nothing about the page
       Section/  Avatar/  ThemeToggle/  Reveal/
       LogoMark/               the "RJ" mark in the navbar
-      CopyButton/             copies text and announces the result
+      Disclosure/             a <details> show/hide dropdown (courses, activities)
   pages/                      one folder per route
     Home/  CaseStudy/  NotFound/
   context/                    ThemeContext.ts, ThemeProvider.tsx
@@ -73,18 +75,19 @@ Each component folder holds `Name.tsx`, `index.ts` (so imports can say
 
 Tests sit next to the code they test (`Section.test.tsx` beside `Section.tsx`)
 and use Vitest's `describe` / `it` / `expect` with React Testing Library.
-There are 45 tests in 14 files.
+There are 63 tests in 17 files.
 
 - **Components** are tested the way a visitor uses them: find elements by
   role and label, click with `user-event`, then check what is on screen (for
-  example, that the course list opens, or that "Copied" is announced).
+  example, that the course list opens, or that the training's activities
+  appear after opening its dropdown).
 - **Components that read a data file** accept the same data as an optional
   prop, so a test can pass its own small list (see `Certifications` and
   `Highlights`).
 - **Routes** are tested with `MemoryRouter`, which lets a test start at any URL.
 - **Browser APIs jsdom lacks** are replaced with fakes: `matchMedia`,
   `IntersectionObserver` (`src/test/mockIntersectionObserver.ts`),
-  scrolling (`src/test/setup.ts`), and the clipboard (`vi.spyOn`).
+  and scrolling (`src/test/setup.ts`).
 
 ## Where things go
 
@@ -129,7 +132,9 @@ gap: 1.5rem;
 ```
 
 - Minimum widths: about `17rem` for text cards with tech tags (Projects),
-  `14rem` for short link cards (Contact), `10rem` for image tiles.
+  `16rem` for case-study photos (Gallery), `14rem` for short link cards
+  (Contact), `12rem` for small stat cards (Accomplishments), `10rem` for
+  image tiles.
 - `min(100%, …)` prevents overflow on very narrow phones.
 - `auto-fill` keeps one or two cards at a normal size; `auto-fit` would
   stretch them across the row.
@@ -145,11 +150,13 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 | To change | Edit | Fields worth knowing |
 |---|---|---|
 | Name, bio, email, links, photo, resume | `site.ts` | `phone` and `phoneHref` (shown in Contact only), `links.linkedin` (`null` hides the card) |
-| Education | `site.ts` (`education`) | `logo`: the school logo next to the school name |
-| Competition results | `highlights.ts` | `proof`: an optional thumbnail link to a proof image |
-| Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `imageFit`, `caseStudy` |
+| Contact intro | `site.ts` | `contactIntro`: the text under the Contact heading |
+| Education | `site.ts` (`education`) | `logo`: the school seal next to the school name |
+| Competition results | `highlights.ts` | `proof`: an optional thumbnail link to a proof image; `link`: an optional text link (`href`, `label`), e.g. an announcement post |
+| Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `team` (shown under My role), `imageFit`, `gallery` (optional photos), `caseStudy` (`subtitle`, `overview`, `accomplishments`) |
 | Skills | `skills.ts` | Keep it matching the resume |
-| Certifications and seminars | `certifications.ts` | `courses`: the course list inside a certificate |
+| Certifications | `certifications.ts` | `courses`: the course list inside a certificate |
+| Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (sentences on the card), `activities` (the dropdown), `credentialUrl` (optional) |
 
 To hide a project, wrap its entry in `projects.ts` in `/* ... */`. Each
 project's `slug` gives it a case study page at `/projects/<slug>`.
@@ -163,7 +170,8 @@ In `certifications.ts`, add `credentialUrl` to the course:
 ```
 
 A "View credential" link appears next to that course only. Courses without a
-URL keep showing the name alone.
+URL keep showing the name alone. A training works the same way: add
+`credentialUrl` to its entry in `trainings` and the card shows the link.
 
 ### Add a project
 
@@ -176,7 +184,48 @@ URL keep showing the name alone.
    no cropping). Real screenshots or photos: `imageFit: 'cover'` fills the frame.
 
 The card shows the image, title, status, summary, role, and stack. The
-bullets, period, team credit, and links appear on the case-study page.
+bullets, period, team credit, accomplishments, photos, and links appear on the
+case-study page.
+
+On the case-study page the blocks appear in this order, each only when it has
+content: Overview, Accomplishments, My role, What I worked on, Tech stack,
+Gallery, Links.
+
+### Add accomplishments to a case study
+
+In `projects.ts`, inside `caseStudy`, add a list. `stat` is optional: with it,
+the number is shown large above the text; without it, the text spans the
+whole row (good for an award).
+
+```ts
+accomplishments: [
+  { text: 'An award, with the event and date' },
+  { stat: '42', text: 'what the number counts' },
+],
+```
+
+### How to add project photos
+
+1. Put the photos in a folder named after the project's slug:
+   `public/projects/<slug>/`, e.g. `public/projects/second-vision/demo.jpg`.
+2. In `projects.ts`, add a `gallery` list to that project:
+
+```ts
+gallery: [
+  {
+    src: '/projects/second-vision/demo.jpg',
+    alt: 'What the photo really shows, in one sentence',
+    caption: 'Optional line under the photo',
+  },
+],
+```
+
+3. Write meaningful `alt` text for every photo. Do not use photos that
+   identify people without their consent.
+
+The Gallery block appears on the case-study page by itself once the list has
+at least one photo. With no `gallery` (or an empty one), nothing is shown.
+Photos are shown whole, never cropped, and load lazily.
 
 ### Add a proof image to a highlight
 
@@ -208,8 +257,9 @@ practice page for data structures and algorithms.
 |---|---|
 | `public/Reiven-Jasa-Resume.pdf` | The navbar Resume button (`resumePath` in `site.ts`). To update it, replace the file and keep the name |
 | `public/profile.jpg` | The photo in the Hero and About sections (`photo` in `site.ts`) |
-| `public/de_la_salle_lipa_logo.png` | The Education card (`education.logo` in `site.ts`) |
-| `public/projects/*.png` | Each project's `screenshot` in `projects.ts` |
+| `public/de_la_salle_lipa_seal.png` | The official school seal in the Education card (`education.logo` in `site.ts`), shown on a small white tile in both themes |
+| `public/projects/*.png`, `public/projects/sobre-pos.webp` | Each project's `screenshot` in `projects.ts`. Sobre POS uses a resized WebP copy of its screenshot to keep the page light |
+| `public/projects/<slug>/` | Optional case-study photos (`gallery` in `projects.ts`) |
 | `public/recognition/*.jpg` | Proof thumbnails (`proof.src` in `highlights.ts`) |
 
 To replace a file, keep the same name, or update the path in `src/data`. Paths
@@ -230,7 +280,7 @@ start with `/` so they work on every page, including `/projects/...`.
 
 - One branch per feature, named by type: `feat/...`, `fix/...`, `chore/...`,
   `docs/...`, `refactor/...`.
-- Commit messages follow Conventional Commits: `feat(contact): add copy email button`.
+- Commit messages follow Conventional Commits: `feat(contact): add the contact cards`.
 - Tests are committed before or with the code they test.
 - Before merging: `npm run lint`, `npm test`, and `npm run build` must pass.
 - Merge with `--no-ff` so each feature stays visible as a merge in the history,
@@ -265,4 +315,4 @@ git push origin main
   server-rendered site would do better for SEO and per-page previews.
 - There is no backend. The Email card opens the visitor's own email app with a
   `mailto:` link, which does nothing if they have no email app set up. The
-  address stays visible, and the "Copy email" button copies it as a fallback.
+  address stays visible on the card, so it can still be copied by hand.
