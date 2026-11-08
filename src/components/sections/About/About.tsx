@@ -24,16 +24,21 @@ export default function About() {
             <h3 className="text-brand-700 text-sm font-semibold uppercase tracking-wide">
               Education
             </h3>
-            {/* Logo beside the text; it never shrinks, the text wraps instead. */}
+            {/* Seal beside the text; it never shrinks, the text wraps instead. */}
             <div className="about__school mt-3">
-              {/* Decorative: the school name is written right next to it. */}
-              <img
-                src={education.logo}
-                alt=""
-                width={56}
-                height={56}
-                className="about__school-logo"
-              />
+              {/* White tile so the seal stays readable in dark mode too. */}
+              <div className="about__seal-tile">
+                {/* Decorative: the school name is written right next to it.
+                    width/height match the seal's 274×364 shape at 64px tall,
+                    so the browser reserves the space before it loads. */}
+                <img
+                  src={education.logo}
+                  alt=""
+                  width={48}
+                  height={64}
+                  className="about__seal"
+                />
+              </div>
               <div className="about__school-text">
                 <p className="font-semibold">{education.degree}</p>
                 <p>
