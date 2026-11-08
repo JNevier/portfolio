@@ -24,7 +24,7 @@ export type Training = {
   program: string
   /** Muted line under the title, e.g. place, length and year. */
   subtitle: string
-  /** One or more short sentences, shown inside the "View Activities" dropdown. */
+  /** One or more short sentences, shown as bullets in the "View Activities" dropdown. */
   description: string[]
   /** Optional links to posts about the program, shown on the card. */
   posts?: { href: string; label: string }[]

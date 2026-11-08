@@ -120,7 +120,7 @@ describe('Certifications', () => {
       expect(screen.queryByText('0')).not.toBeInTheDocument()
     })
 
-    it('keeps the description inside the collapsed View Activities dropdown, with no bullets', async () => {
+    it('lists the description as bullets inside the collapsed View Activities dropdown', async () => {
       const user = userEvent.setup()
       render(<Certifications certifications={[]} />)
 
@@ -128,10 +128,10 @@ describe('Certifications', () => {
       const details = summary.closest('details') as HTMLDetailsElement
       expect(details.open).toBe(false)
 
-      for (const sentence of DESCRIPTION) {
-        expect(details).toContainElement(screen.getByText(sentence))
-      }
-      expect(within(details).queryByRole('listitem')).not.toBeInTheDocument()
+      const items = within(details)
+        .getAllByRole('listitem')
+        .map((item) => item.textContent)
+      expect(items).toEqual(DESCRIPTION)
 
       await user.click(summary)
       expect(details.open).toBe(true)

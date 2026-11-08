@@ -80,8 +80,8 @@ There are 69 tests in 18 files.
 
 - **Components** are tested the way a visitor uses them: find elements by
   role and label, click with `user-event`, then check what is on screen (for
-  example, that the course list opens, or that the training's description
-  sits inside its "View Activities" dropdown).
+  example, that the course list opens, or that the training's bullets sit
+  inside its "View Activities" dropdown).
 - **Components that read a data file** accept the same data as an optional
   prop, so a test can pass its own small list (see `Certifications` and
   `Highlights`).
@@ -157,7 +157,7 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 | Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `team` (shown under My role), `imageFit`, `gallery` (optional photos), `caseStudy` (`subtitle`, `overview`, `accomplishments`) |
 | Skills | `skills.ts` | Keep it matching the resume |
 | Certifications | `certifications.ts` | `courses`: the course list inside a certificate |
-| Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (sentences inside the "View Activities" dropdown), `posts` (optional links, each with `href` and `label`), `credentialUrl` (optional) |
+| Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (bullets inside the "View Activities" dropdown), `posts` (optional links, each with `href` and `label`), `credentialUrl` (optional) |
 
 To hide a project, wrap its entry in `projects.ts` in `/* ... */`. Each
 project's `slug` gives it a case study page at `/projects/<slug>`.
