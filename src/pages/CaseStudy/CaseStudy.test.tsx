@@ -27,7 +27,7 @@ describe('CaseStudy', () => {
     delete secondVision.gallery
   })
 
-  it('shows the five Second Vision accomplishments with the exact text', () => {
+  it('shows the six Second Vision accomplishments with the exact text', () => {
     renderCaseStudy('second-vision')
 
     const block = screen.getByRole('heading', { level: 2, name: 'Project Accomplishments' })
@@ -35,6 +35,7 @@ describe('CaseStudy', () => {
     const items = within(block).getAllByRole('listitem')
     expect(items.map((item) => item.textContent)).toEqual([
       'Regional Champion, DICT Philippine Startup Challenge XI (Region IV-A CALABARZON), October 2026',
+      'Top 3 of 10 Finalists, BAYANI Lab, October 2026',
       '108unit, integration, system, and alpha test cases, all passed',
       '29.6 FPSsustained with both AI models running',
       '3.64+ hoursof battery life',
