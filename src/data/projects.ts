@@ -111,6 +111,7 @@ export const projects: Project[] = [
       // Shown exactly as written: do not round or reword the numbers.
       accomplishments: [
         { text: 'Regional Champion, DICT Philippine Startup Challenge XI (Region IV-A CALABARZON), October 2026' },
+        { text: 'Top 3 of 10 Finalists, BAYANI Lab, October 2026' },
         { stat: '108', text: 'unit, integration, system, and alpha test cases, all passed' },
         { stat: '29.6 FPS', text: 'sustained with both AI models running' },
         { stat: '3.64+ hours', text: 'of battery life' },
