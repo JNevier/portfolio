@@ -1,5 +1,5 @@
 import type { IconType } from 'react-icons'
-import { FaGithub, FaLinkedin, FaPhone } from 'react-icons/fa6'
+import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
 import { site } from '../../../data/site'
 import Section from '../../ui/Section'
@@ -10,7 +10,7 @@ type ContactLink = {
   value: string
   href: string
   Icon: IconType
-  /** Profiles open in a new tab; email and phone open the visitor's own app. */
+  /** Profiles open in a new tab; email opens the visitor's own email app. */
   external?: boolean
 }
 
@@ -44,12 +44,6 @@ function getContactLinks(): ContactLink[] {
       value: site.email,
       href: `mailto:${site.email}`,
       Icon: SiGmail,
-    },
-    {
-      label: 'Phone',
-      value: site.phone,
-      href: site.phoneHref,
-      Icon: FaPhone,
     },
     {
       label: 'GitHub',

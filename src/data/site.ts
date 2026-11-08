@@ -13,12 +13,6 @@ export const site = {
   location: 'Batangas, Philippines',
   email: 'reiven.jasa.dev@gmail.com',
 
-  // Shown in the Contact section only. Never add it to the hero, footer,
-  // About, metadata, or the README.
-  phone: '0977 420 1347',
-  // The same number in international format, for the tel: link.
-  phoneHref: 'tel:+639774201347',
-
   // One sentence for the hero, directly under the name.
   tagline:
     'Fourth-year BS Computer Science student building full-stack web apps and embedded systems, looking for a developer internship or OJT role.',

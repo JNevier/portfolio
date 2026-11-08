@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
 import { AppRoutes } from '../../../App'
@@ -36,10 +36,6 @@ describe('Contact', () => {
       'href',
       `mailto:${site.email}`,
     )
-    expect(screen.getByRole('link', { name: /phone/i })).toHaveAttribute(
-      'href',
-      site.phoneHref,
-    )
 
     const github = screen.getByRole('link', { name: /github/i })
     expect(github).toHaveAttribute('href', site.links.github)
@@ -58,24 +54,10 @@ describe('Contact', () => {
     expect(document.querySelector('form, input, textarea')).toBeNull()
   })
 
-  it('shows the phone number exactly once on the home page, only in Contact', () => {
+  it('shows no phone number anywhere on the home page', () => {
     renderHome()
 
-    const matches = screen.getAllByText(site.phone)
-    expect(matches).toHaveLength(1)
-    expect(matches[0].closest('section')).toHaveAttribute('id', 'contact')
-
-    // None of the other page areas mention it.
-    const hero = screen.getByRole('region', { name: site.name })
-    const about = screen.getByRole('region', { name: 'About' })
-    for (const area of [
-      hero,
-      about,
-      screen.getByRole('banner'),
-      screen.getByRole('contentinfo'),
-    ]) {
-      expect(within(area).queryByText(site.phone)).not.toBeInTheDocument()
-      expect(area.innerHTML).not.toContain(site.phoneHref)
-    }
+    expect(screen.queryByText(/phone/i)).not.toBeInTheDocument()
+    expect(document.querySelector('a[href^="tel:"]')).toBeNull()
   })
 })
