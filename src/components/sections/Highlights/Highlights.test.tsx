@@ -15,6 +15,24 @@ describe('Highlights', () => {
     expect(within(link).getByRole('img')).toHaveAttribute('alt', dict?.proof?.alt)
   })
 
+  it('links the BAYANI item to the announcement, and the DICT item has no such link', () => {
+    render(<Highlights />)
+
+    const link = screen.getByRole('link', { name: /view announcement on facebook/i })
+    expect(link).toHaveAttribute('href', 'https://www.facebook.com/share/p/18jYsGF9iF/')
+    expect(link).toHaveAttribute('target', '_blank')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(link).toHaveTextContent('opens in a new tab')
+
+    // The link sits in the BAYANI item, not the DICT one.
+    const items = screen.getAllByRole('listitem')
+    const bayani = items.find((item) => item.textContent?.includes('BAYANI Lab'))
+    const dict = items.find((item) => item.textContent?.includes('DICT'))
+    expect(bayani).toContainElement(link)
+    expect(within(dict as HTMLElement).queryByRole('link', { name: /announcement/i })).toBeNull()
+    expect(highlights.find((item) => item.label.includes('DICT'))?.link).toBeUndefined()
+  })
+
   it('renders no link for an item without proof', () => {
     render(
       <Highlights

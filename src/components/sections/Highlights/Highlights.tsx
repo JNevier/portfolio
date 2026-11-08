@@ -11,7 +11,7 @@ type HighlightsProps = {
   Slim proof strip right under the hero, so a visitor sees the competition
   results within the first few seconds. Content comes from data/highlights.ts.
   An item with `proof` also shows a small thumbnail that opens the full image
-  in a new tab.
+  in a new tab, and an item with `link` shows a text link under its status.
 */
 export default function Highlights({
   highlights = defaultHighlights,
@@ -42,6 +42,19 @@ export default function Highlights({
                 </p>
                 {item.status && (
                   <p className="text-muted mt-1 text-xs">{item.status}</p>
+                )}
+                {/* Same size and colour as the proof link label. */}
+                {item.link && (
+                  <a
+                    href={item.link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-700 hover:text-brand-800 mt-1 inline-block text-xs font-semibold underline-offset-[3px] hover:underline"
+                  >
+                    {item.link.label}
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
                 )}
               </div>
 
