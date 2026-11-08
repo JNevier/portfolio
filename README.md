@@ -149,7 +149,7 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 
 | To change | Edit | Fields worth knowing |
 |---|---|---|
-| Name, bio, email, links, photo, resume | `site.ts` | `phone` and `phoneHref` (shown in Contact only), `links.linkedin` (`null` hides the card) |
+| Name, bio, email, links, photo, resume | `site.ts` | `links.linkedin` (`null` hides the card) |
 | Contact intro | `site.ts` | `contactIntro`: the text under the Contact heading |
 | Education | `site.ts` (`education`) | `logo`: the school seal next to the school name |
 | Competition results | `highlights.ts` | `proof`: an optional thumbnail link to a proof image; `link`: an optional text link (`href`, `label`), e.g. an announcement post |
