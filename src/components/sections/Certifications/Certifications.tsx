@@ -13,7 +13,7 @@ type CertificationsProps = {
 }
 
 /* Opens in a new tab, and says so to screen-reader users. */
-function CredentialLink({ href }: { href: string }) {
+function ExternalLink({ href, label }: { href: string; label: string }) {
   return (
     <a
       href={href}
@@ -21,15 +21,19 @@ function CredentialLink({ href }: { href: string }) {
       rel="noopener noreferrer"
       className="text-brand-700 text-sm font-semibold hover:underline"
     >
-      View credential
+      {label}
       <span className="sr-only"> (opens in a new tab)</span>
     </a>
   )
 }
 
+function CredentialLink({ href }: { href: string }) {
+  return <ExternalLink href={href} label="View credential" />
+}
+
 /*
   Certifications & Training: certificates first, then seminars.
-  A certificate's courses and a training's activities sit in a Disclosure
+  A certificate's courses and a training's description sit in a Disclosure
   (a native <details> toggle), so the lists stay out of the way until a
   visitor asks for them.
 */
@@ -99,25 +103,30 @@ export default function Certifications({
               >
                 <p className="font-semibold">{training.program}</p>
                 <p className="text-muted text-sm">{training.subtitle}</p>
-                <div className="mt-2 space-y-2 text-sm">
-                  {training.description.map((sentence) => (
-                    <p key={sentence}>{sentence}</p>
-                  ))}
-                </div>
-                {/* Only shown once a credential link is added in the data file. */}
-                {training.credentialUrl && (
-                  <p className="mt-2">
-                    <CredentialLink href={training.credentialUrl} />
-                  </p>
+
+                {/* Post links, then the credential link once one is added. */}
+                {Boolean(training.posts?.length || training.credentialUrl) && (
+                  <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                    {training.posts?.map((post) => (
+                      <li key={post.href}>
+                        <ExternalLink href={post.href} label={post.label} />
+                      </li>
+                    ))}
+                    {training.credentialUrl && (
+                      <li>
+                        <CredentialLink href={training.credentialUrl} />
+                      </li>
+                    )}
+                  </ul>
                 )}
 
-                {training.activities.length > 0 && (
-                  <Disclosure label="View the activities attended" className="mt-4">
-                    <ul className="mt-3 list-disc space-y-2 pl-6 text-sm">
-                      {training.activities.map((activity) => (
-                        <li key={activity}>{activity}</li>
+                {training.description.length > 0 && (
+                  <Disclosure label="View Activities" className="mt-4">
+                    <div className="mt-3 space-y-2 text-sm">
+                      {training.description.map((sentence) => (
+                        <p key={sentence}>{sentence}</p>
                       ))}
-                    </ul>
+                    </div>
                   </Disclosure>
                 )}
               </li>

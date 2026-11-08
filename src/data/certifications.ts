@@ -24,10 +24,10 @@ export type Training = {
   program: string
   /** Muted line under the title, e.g. place, length and year. */
   subtitle: string
-  /** One or more short sentences shown on the card. */
+  /** One or more short sentences, shown inside the "View Activities" dropdown. */
   description: string[]
-  /** Listed in the dropdown. */
-  activities: string[]
+  /** Optional links to posts about the program, shown on the card. */
+  posts?: { href: string; label: string }[]
   /** Optional: shows a "View credential" link only when set. */
   credentialUrl?: string
 }
@@ -61,11 +61,11 @@ export const trainings: Training[] = [
       'Participated in technical seminars on Machine Learning, Artificial Intelligence, and Computer Vision for Quality Inspection.',
       'Engaged in a Design Thinking Workshop and academic exchange activities with international students.',
     ],
-    activities: [
-      'Machine Learning and AI Seminar',
-      'Design Thinking Workshop (UResearch Case Study)',
-      'Quality Inspection with Computer Vision Seminar',
-      'Academic exchange activities with international students',
+    // The two posts about the seminars and workshops. Tracking parameters
+    // are removed from the links on purpose.
+    posts: [
+      { href: 'https://www.instagram.com/p/DYHvTMqkZ4g/', label: 'View post 1' },
+      { href: 'https://www.instagram.com/p/DYHvF6XEa7U/', label: 'View post 2' },
     ],
     // Add credentialUrl here once the program gives a credential link.
   },
