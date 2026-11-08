@@ -91,11 +91,11 @@ export const projects: Project[] = [
       'Owned the technical test plan covering 108 unit, integration, system, and alpha test cases, all passed.',
       'Collaborated through GitHub feature branches and refined the prototype using feedback from four visually impaired reviewers.',
     ],
-    // The team's repository, opened on the branch with my ESP32 glasses firmware.
+    // The team's repository, opened on its main branch.
     links: [
       {
-        label: 'Code (ESP32 firmware branch)',
-        href: 'https://github.com/KRMeeag/second-vision/tree/feat/esp32-glasses',
+        label: 'Code',
+        href: 'https://github.com/KRMeeag/second-vision/tree/main',
       },
     ],
     // Replace with a real screenshot or photo later
