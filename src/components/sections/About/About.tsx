@@ -26,7 +26,7 @@ export default function About() {
             </h3>
             {/* Seal beside the text; it never shrinks, the text wraps instead. */}
             <div className="about__school mt-3">
-              {/* White tile so the seal stays readable in dark mode too. */}
+              {/* The seal PNG is transparent, so it sits straight on the card. */}
               <div className="about__seal-tile">
                 {/* Decorative: the school name is written right next to it.
                     width/height match the seal's 274×364 shape at 64px tall,
