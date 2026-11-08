@@ -16,7 +16,14 @@ type ProjectCardProps = {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="project-card border-line bg-surface flex flex-col overflow-hidden rounded-lg border">
-      <ProjectMedia project={project} lazy className="border-line border-b" />
+      <ProjectMedia
+        src={project.screenshot}
+        alt={project.screenshotAlt}
+        fit={project.imageFit}
+        placeholder={project.title}
+        lazy
+        className="border-line border-b"
+      />
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex flex-wrap items-start justify-between gap-2">

@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import Accomplishments from '../../components/projects/Accomplishments'
+import Gallery from '../../components/projects/Gallery'
 import ProjectMedia from '../../components/projects/ProjectMedia'
 import { projects } from '../../data/projects'
 import type { Project } from '../../data/projects'
@@ -33,6 +35,8 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 /*
   The page itself. Only the blocks that have content are rendered,
   so a project with less information simply shows a shorter page.
+  Block order: Overview, Accomplishments, My role, What I worked on,
+  Tech stack, Gallery, Links.
 */
 function CaseStudyArticle({ project }: { project: Project }) {
   useDocumentTitle(`${project.title} case study — ${site.name}`)
@@ -65,7 +69,10 @@ function CaseStudyArticle({ project }: { project: Project }) {
 
       {project.screenshot && (
         <ProjectMedia
-          project={project}
+          src={project.screenshot}
+          alt={project.screenshotAlt}
+          fit={project.imageFit}
+          placeholder={project.title}
           className="border-line mt-8 rounded-lg border"
         />
       )}
@@ -78,6 +85,12 @@ function CaseStudyArticle({ project }: { project: Project }) {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
+          </Block>
+        )}
+
+        {caseStudy?.accomplishments && caseStudy.accomplishments.length > 0 && (
+          <Block title="Accomplishments">
+            <Accomplishments items={caseStudy.accomplishments} />
           </Block>
         )}
 
@@ -109,6 +122,13 @@ function CaseStudyArticle({ project }: { project: Project }) {
             ))}
           </ul>
         </Block>
+
+        {/* Appears by itself once photos are added to `gallery`. */}
+        {project.gallery && project.gallery.length > 0 && (
+          <Block title="Gallery">
+            <Gallery images={project.gallery} />
+          </Block>
+        )}
 
         {project.links.length > 0 && (
           <Block title="Links">

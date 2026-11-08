@@ -1,0 +1,43 @@
+/*
+  Accomplishment cards on the case-study page.
+  Own CSS file because the grid sizes its own columns (no breakpoints) and an
+  item without a stat spans the whole row with grid-column.
+*/
+
+/* As many columns as fit while each card stays at least 12rem wide. */
+.accomplishments {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+  gap: 1rem;
+}
+
+.accomplishments__item {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  background-color: var(--color-surface-muted);
+}
+
+/* No stat (e.g. an award): the text gets the full width of the grid. */
+.accomplishments__item--wide {
+  grid-column: 1 / -1;
+}
+
+/* The number, shown large. brand-700 on surface-muted passes AA in both themes. */
+.accomplishments__stat {
+  color: var(--color-brand-700);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.accomplishments__text {
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+/* The full-row item has no number above it, so its text stands out a little. */
+.accomplishments__item--wide .accomplishments__text {
+  margin-top: 0;
+  font-weight: 600;
+}

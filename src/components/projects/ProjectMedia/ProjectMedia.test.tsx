@@ -1,33 +1,18 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import type { Project } from '../../../data/projects'
 import ProjectMedia from './ProjectMedia'
 
-const baseProject: Project = {
-  slug: 'demo',
-  title: 'Demo',
-  summary: 'A demo project.',
-  role: 'Developer',
-  period: '2026',
-  status: 'Completed',
-  stack: [],
-  bullets: [],
-  links: [],
-  screenshot: '/projects/demo.png',
-  screenshotAlt: 'Demo logo',
-}
-
 describe('ProjectMedia', () => {
-  it('shows the whole image (contain) when imageFit is not set', () => {
-    render(<ProjectMedia project={baseProject} />)
+  it('shows the whole image (contain) when fit is not set', () => {
+    render(<ProjectMedia src="/projects/demo.png" alt="Demo logo" />)
 
     expect(screen.getByRole('img', { name: 'Demo logo' })).toHaveClass(
       'project-media__img--contain',
     )
   })
 
-  it('respects imageFit: cover', () => {
-    render(<ProjectMedia project={{ ...baseProject, imageFit: 'cover' }} />)
+  it('respects fit: cover', () => {
+    render(<ProjectMedia src="/projects/demo.png" alt="Demo logo" fit="cover" />)
 
     expect(screen.getByRole('img', { name: 'Demo logo' })).toHaveClass(
       'project-media__img--cover',
@@ -35,15 +20,17 @@ describe('ProjectMedia', () => {
   })
 
   it('lazy-loads only when asked to', () => {
-    const { rerender } = render(<ProjectMedia project={baseProject} lazy />)
+    const { rerender } = render(
+      <ProjectMedia src="/projects/demo.png" alt="Demo logo" lazy />,
+    )
     expect(screen.getByRole('img')).toHaveAttribute('loading', 'lazy')
 
-    rerender(<ProjectMedia project={baseProject} />)
+    rerender(<ProjectMedia src="/projects/demo.png" alt="Demo logo" />)
     expect(screen.getByRole('img')).not.toHaveAttribute('loading')
   })
 
-  it('shows a placeholder with no image when there is no screenshot', () => {
-    render(<ProjectMedia project={{ ...baseProject, screenshot: null }} />)
+  it('shows a placeholder with no image when there is no src', () => {
+    render(<ProjectMedia src={null} alt="" placeholder="Demo" />)
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
     expect(screen.getByText('Demo')).toBeInTheDocument()

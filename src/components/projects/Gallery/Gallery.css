@@ -1,0 +1,23 @@
+/*
+  Photo grid on the case-study page.
+  Own CSS file because the grid sizes its own columns (no breakpoints).
+*/
+
+/* As many columns as fit while each photo stays at least 16rem wide. */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  gap: 1.25rem;
+}
+
+/* Browsers give <figure> a default margin; the grid gap handles spacing. */
+.gallery__figure {
+  margin: 0;
+}
+
+.gallery__caption {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
