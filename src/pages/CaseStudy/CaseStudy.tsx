@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import Accomplishments from '../../components/projects/Accomplishments'
 import Gallery from '../../components/projects/Gallery'
 import ProjectMedia from '../../components/projects/ProjectMedia'
+import LinkIcon from '../../components/ui/LinkIcon'
 import { projects } from '../../data/projects'
 import type { Project } from '../../data/projects'
 import { site } from '../../data/site'
@@ -139,8 +140,10 @@ function CaseStudyArticle({ project }: { project: Project }) {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-700 hover:text-brand-800 font-semibold underline-offset-4 hover:underline"
+                    className="text-brand-700 hover:text-brand-800 inline-flex items-center gap-2 font-semibold underline-offset-4 hover:underline"
                   >
+                    {/* The logo of the site the link goes to, e.g. GitHub. */}
+                    <LinkIcon href={link.href} className="h-5 w-5 shrink-0" />
                     {link.label}
                     <span className="sr-only"> (opens in a new tab)</span>
                     <span aria-hidden="true"> ↗</span>

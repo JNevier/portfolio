@@ -100,4 +100,18 @@ describe('CaseStudy', () => {
       ),
     ).toBeInTheDocument()
   })
+
+  it('shows the logo of the linked site next to each link', () => {
+    for (const project of projects) {
+      const { unmount } = renderCaseStudy(project.slug)
+      for (const link of project.links) {
+        const anchor = screen.getByRole('link', { name: new RegExp(link.label) })
+        expect(anchor.querySelector('svg[aria-hidden="true"]')).toHaveAttribute(
+          'data-icon',
+          'github.com',
+        )
+      }
+      unmount()
+    }
+  })
 })
