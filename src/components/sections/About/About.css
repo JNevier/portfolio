@@ -2,7 +2,7 @@
   About section layout.
   Own CSS file because it uses grid-template-areas and hand-written
   @media queries: stacked on phones, photo beside the text on larger screens.
-  It also styles the school seal tile in the Education card.
+  It also styles the school seal in the Education card.
 */
 .about {
   display: grid;
@@ -62,15 +62,9 @@
   min-width: 0;
 }
 
-/*
-  A small rounded tile behind the seal. --color-media stays white in both
-  themes, so the seal's dark lines stay readable in dark mode.
-*/
+/* Keeps the seal at its size while the text beside it wraps. */
 .about__seal-tile {
   flex-shrink: 0;
-  padding: 0.375rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-media);
 }
 
 /*
