@@ -1,7 +1,8 @@
 /*
   Certifications and seminars / trainings.
-  `credentialUrl` is optional, on a certificate and on each course: leave it
-  out until the link exists, and the site shows the name without a link.
+  `credentialUrl` is optional, on a certificate, each course and each
+  training: leave it out until the link exists, and the site shows the name
+  without a link.
 */
 
 /** One course inside a certificate. Add `credentialUrl` once the link exists. */
@@ -21,8 +22,14 @@ export type Certification = {
 
 export type Training = {
   program: string
-  year: string
-  sessions: string[]
+  /** Muted line under the title, e.g. place, length and year. */
+  subtitle: string
+  /** One or more short sentences shown on the card. */
+  description: string[]
+  /** Listed in the dropdown. */
+  activities: string[]
+  /** Optional: shows a "View credential" link only when set. */
+  credentialUrl?: string
 }
 
 export const certifications: Certification[] = [
@@ -48,12 +55,18 @@ export const certifications: Certification[] = [
 
 export const trainings: Training[] = [
   {
-    program: 'Universiti Teknologi PETRONAS (UTP) Immersion Program',
-    year: '2026',
-    sessions: [
+    program: 'Universiti Teknologi PETRONAS (UTP) – International Academic Immersion Program',
+    subtitle: 'Malaysia · 1 Week · 2026',
+    description: [
+      'Participated in technical seminars on Machine Learning, Artificial Intelligence, and Computer Vision for Quality Inspection.',
+      'Engaged in a Design Thinking Workshop and academic exchange activities with international students.',
+    ],
+    activities: [
       'Machine Learning and AI Seminar',
       'Design Thinking Workshop (UResearch Case Study)',
       'Quality Inspection with Computer Vision Seminar',
+      'Academic exchange activities with international students',
     ],
+    // Add credentialUrl here once the program gives a credential link.
   },
 ]
