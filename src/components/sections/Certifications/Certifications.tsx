@@ -3,8 +3,8 @@ import {
   trainings as defaultTrainings,
 } from '../../../data/certifications'
 import type { Certification, Training } from '../../../data/certifications'
+import Disclosure from '../../ui/Disclosure'
 import Section from '../../ui/Section'
-import './Certifications.css'
 
 type CertificationsProps = {
   /** Defaults to the data file. Tests pass their own lists. */
@@ -29,8 +29,9 @@ function CredentialLink({ href }: { href: string }) {
 
 /*
   Certifications & Training: certificates first, then seminars.
-  A certificate with courses gets a native <details> toggle listing them,
-  so the list stays out of the way until a visitor asks for it.
+  A certificate's courses and a training's activities sit in a Disclosure
+  (a native <details> toggle), so the lists stay out of the way until a
+  visitor asks for them.
 */
 export default function Certifications({
   certifications = defaultCertifications,
@@ -61,10 +62,10 @@ export default function Certifications({
                 )}
 
                 {cert.courses && cert.courses.length > 0 && (
-                  <details className="certifications__courses mt-4">
-                    <summary className="certifications__summary text-sm font-semibold">
-                      View the {cert.courses.length} courses in this certificate
-                    </summary>
+                  <Disclosure
+                    label={`View the ${cert.courses.length} courses in this certificate`}
+                    className="mt-4"
+                  >
                     <ol className="mt-3 list-decimal space-y-2 pl-6 text-sm">
                       {cert.courses.map((course) => (
                         <li key={course.name}>
@@ -79,7 +80,7 @@ export default function Certifications({
                         </li>
                       ))}
                     </ol>
-                  </details>
+                  </Disclosure>
                 )}
               </li>
             ))}
@@ -97,12 +98,28 @@ export default function Certifications({
                 className="border-line rounded-lg border p-5"
               >
                 <p className="font-semibold">{training.program}</p>
-                <p className="text-muted text-sm">{training.year}</p>
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-                  {training.sessions.map((session) => (
-                    <li key={session}>{session}</li>
+                <p className="text-muted text-sm">{training.subtitle}</p>
+                <div className="mt-2 space-y-2 text-sm">
+                  {training.description.map((sentence) => (
+                    <p key={sentence}>{sentence}</p>
                   ))}
-                </ul>
+                </div>
+                {/* Only shown once a credential link is added in the data file. */}
+                {training.credentialUrl && (
+                  <p className="mt-2">
+                    <CredentialLink href={training.credentialUrl} />
+                  </p>
+                )}
+
+                {training.activities.length > 0 && (
+                  <Disclosure label="View the activities attended" className="mt-4">
+                    <ul className="mt-3 list-disc space-y-2 pl-6 text-sm">
+                      {training.activities.map((activity) => (
+                        <li key={activity}>{activity}</li>
+                      ))}
+                    </ul>
+                  </Disclosure>
+                )}
               </li>
             ))}
           </ul>
