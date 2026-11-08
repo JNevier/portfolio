@@ -30,7 +30,7 @@ describe('CaseStudy', () => {
   it('shows the five Second Vision accomplishments with the exact text', () => {
     renderCaseStudy('second-vision')
 
-    const block = screen.getByRole('heading', { level: 2, name: 'Accomplishments' })
+    const block = screen.getByRole('heading', { level: 2, name: 'Project Accomplishments' })
       .parentElement as HTMLElement
     const items = within(block).getAllByRole('listitem')
     expect(items.map((item) => item.textContent)).toEqual([
@@ -42,10 +42,10 @@ describe('CaseStudy', () => {
     ])
   })
 
-  it('shows no Accomplishments block on the other projects', () => {
+  it('shows no Project Accomplishments block on the other projects', () => {
     for (const slug of ['sobre-pos', 'little-lemon']) {
       const { unmount } = renderCaseStudy(slug)
-      expect(screen.queryByRole('heading', { name: 'Accomplishments' })).toBeNull()
+      expect(screen.queryByRole('heading', { name: 'Project Accomplishments' })).toBeNull()
       unmount()
     }
   })
@@ -55,7 +55,7 @@ describe('CaseStudy', () => {
 
     expect(blockTitles()).toEqual([
       'Overview',
-      'Accomplishments',
+      'Project Accomplishments',
       'My role',
       'What I worked on',
       'Tech stack',
@@ -71,7 +71,7 @@ describe('CaseStudy', () => {
 
     expect(blockTitles()).toEqual([
       'Overview',
-      'Accomplishments',
+      'Project Accomplishments',
       'My role',
       'What I worked on',
       'Tech stack',
