@@ -35,7 +35,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 /*
   The page itself. Only the blocks that have content are rendered,
   so a project with less information simply shows a shorter page.
-  Block order: Overview, Accomplishments, My role, What I worked on,
+  Block order: Overview, Project Accomplishments, My role, What I worked on,
   Tech stack, Gallery, Links.
 */
 function CaseStudyArticle({ project }: { project: Project }) {
@@ -89,7 +89,7 @@ function CaseStudyArticle({ project }: { project: Project }) {
         )}
 
         {caseStudy?.accomplishments && caseStudy.accomplishments.length > 0 && (
-          <Block title="Accomplishments">
+          <Block title="Project Accomplishments">
             <Accomplishments items={caseStudy.accomplishments} />
           </Block>
         )}

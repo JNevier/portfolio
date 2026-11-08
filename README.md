@@ -188,7 +188,7 @@ bullets, period, team credit, accomplishments, photos, and links appear on the
 case-study page.
 
 On the case-study page the blocks appear in this order, each only when it has
-content: Overview, Accomplishments, My role, What I worked on, Tech stack,
+content: Overview, Project Accomplishments, My role, What I worked on, Tech stack,
 Gallery, Links.
 
 ### Add accomplishments to a case study
