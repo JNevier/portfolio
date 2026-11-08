@@ -2,7 +2,6 @@ import type { IconType } from 'react-icons'
 import { FaGithub, FaLinkedin, FaPhone } from 'react-icons/fa6'
 import { SiGmail } from 'react-icons/si'
 import { site } from '../../../data/site'
-import CopyButton from '../../ui/CopyButton'
 import Section from '../../ui/Section'
 import './Contact.css'
 
@@ -75,15 +74,15 @@ function getContactLinks(): ContactLink[] {
 }
 
 /*
-  Contact section: one link card per way to reach me, plus a button that
-  copies the email address. There is no backend and no form.
+  Contact section: one link card per way to reach me.
+  There is no backend and no form.
 */
 export default function Contact() {
   return (
     <Section
       id="contact"
       title="Contact"
-      intro="I am open to Developer Internship and OJT opportunities. The fastest way to reach me is by email."
+      intro={site.contactIntro}
       muted
     >
       <ul className="contact__grid">
@@ -108,15 +107,7 @@ export default function Contact() {
         ))}
       </ul>
 
-      <div className="mt-6">
-        <CopyButton
-          text={site.email}
-          label="Copy email"
-          failedMessage="Copy failed, select the address above"
-        />
-      </div>
-
-      <p className="text-muted mt-4 text-sm">Based in {site.location}.</p>
+      <p className="text-muted mt-6 text-sm">Based in {site.location}.</p>
     </Section>
   )
 }

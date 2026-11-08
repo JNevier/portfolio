@@ -32,6 +32,10 @@ export const site = {
   lookingFor:
     'I am currently looking for a Developer Internship or OJT placement where I can contribute to real products, work alongside an experienced team, and keep growing as a full-stack developer.',
 
+  // The intro under the Contact heading.
+  contactIntro:
+    'Have an opportunity in mind? I am currently open to OJT and professional work. Whether you are looking for a developer to join your team or someone to bring an idea to life, I would be happy to connect.',
+
   links: {
     github: 'https://github.com/JNevier',
     // Set to null to hide the LinkedIn link.

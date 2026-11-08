@@ -17,6 +17,18 @@ function renderHome() {
 }
 
 describe('Contact', () => {
+  it('shows the intro from site.contactIntro', () => {
+    render(<Contact />)
+
+    expect(screen.getByText(site.contactIntro)).toBeInTheDocument()
+  })
+
+  it('has no "Copy email" button', () => {
+    render(<Contact />)
+
+    expect(screen.queryByRole('button', { name: /copy email/i })).not.toBeInTheDocument()
+  })
+
   it('links each card to the right place', () => {
     render(<Contact />)
 
