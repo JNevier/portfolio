@@ -122,11 +122,11 @@ export default function Certifications({
 
                 {training.description.length > 0 && (
                   <Disclosure label="View Activities" className="mt-4">
-                    <div className="mt-3 space-y-2 text-sm">
+                    <ul className="mt-3 list-disc space-y-2 pl-6 text-sm">
                       {training.description.map((sentence) => (
-                        <p key={sentence}>{sentence}</p>
+                        <li key={sentence}>{sentence}</li>
                       ))}
-                    </div>
+                    </ul>
                   </Disclosure>
                 )}
               </li>
