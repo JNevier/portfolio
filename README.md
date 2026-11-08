@@ -58,6 +58,7 @@ src/
       Section/  Avatar/  ThemeToggle/  Reveal/
       LogoMark/               the "RJ" mark in the navbar
       Disclosure/             a <details> show/hide dropdown (courses, activities)
+      LinkIcon/               the logo of the site a link goes to (GitHub, Instagram, ...)
   pages/                      one folder per route
     Home/  CaseStudy/  NotFound/
   context/                    ThemeContext.ts, ThemeProvider.tsx
@@ -75,7 +76,7 @@ Each component folder holds `Name.tsx`, `index.ts` (so imports can say
 
 Tests sit next to the code they test (`Section.test.tsx` beside `Section.tsx`)
 and use Vitest's `describe` / `it` / `expect` with React Testing Library.
-There are 65 tests in 17 files.
+There are 69 tests in 18 files.
 
 - **Components** are tested the way a visitor uses them: find elements by
   role and label, click with `user-event`, then check what is on screen (for
