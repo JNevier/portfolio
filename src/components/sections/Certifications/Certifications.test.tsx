@@ -65,9 +65,12 @@ describe('Certifications', () => {
 
   describe('training card', () => {
     const utp = trainings[0]
-    const ACTIVITIES_TEXT = 'View the activities attended'
+    const DESCRIPTION = [
+      'Participated in technical seminars on Machine Learning, Artificial Intelligence, and Computer Vision for Quality Inspection.',
+      'Engaged in a Design Thinking Workshop and academic exchange activities with international students.',
+    ]
 
-    it('shows the title, subtitle and both description sentences', () => {
+    it('shows the title and subtitle', () => {
       render(<Certifications />)
 
       expect(
@@ -76,16 +79,20 @@ describe('Certifications', () => {
         ),
       ).toBeInTheDocument()
       expect(screen.getByText('Malaysia · 1 Week · 2026')).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Participated in technical seminars on Machine Learning, Artificial Intelligence, and Computer Vision for Quality Inspection.',
-        ),
-      ).toBeInTheDocument()
-      expect(
-        screen.getByText(
-          'Engaged in a Design Thinking Workshop and academic exchange activities with international students.',
-        ),
-      ).toBeInTheDocument()
+    })
+
+    it('links both posts in a new tab, without tracking parameters', () => {
+      render(<Certifications certifications={[]} />)
+
+      const first = screen.getByRole('link', { name: /view post 1/i })
+      const second = screen.getByRole('link', { name: /view post 2/i })
+      expect(first).toHaveAttribute('href', 'https://www.instagram.com/p/DYHvTMqkZ4g/')
+      expect(second).toHaveAttribute('href', 'https://www.instagram.com/p/DYHvF6XEa7U/')
+      for (const link of [first, second]) {
+        expect(link).toHaveAttribute('target', '_blank')
+        expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+        expect(link).toHaveTextContent('opens in a new tab')
+      }
     })
 
     it('has no credential link without a URL', () => {
@@ -103,29 +110,32 @@ describe('Certifications', () => {
       expect(link).toHaveAttribute('href', 'https://example.com/utp')
       expect(link).toHaveAttribute('target', '_blank')
       expect(link).toHaveAttribute('rel', 'noopener noreferrer')
-      expect(link).toHaveTextContent('opens in a new tab')
     })
 
-    it('lists the four activities after opening the collapsed dropdown', async () => {
-      const user = userEvent.setup()
-      render(<Certifications />)
+    it('shows no links at all when there are no posts and no credential', () => {
+      const plain: Training[] = [{ ...utp, posts: undefined }]
+      render(<Certifications certifications={[]} trainings={plain} />)
 
-      const summary = screen.getByText(ACTIVITIES_TEXT)
+      expect(screen.queryByRole('link')).not.toBeInTheDocument()
+      expect(screen.queryByText('0')).not.toBeInTheDocument()
+    })
+
+    it('keeps the description inside the collapsed View Activities dropdown, with no bullets', async () => {
+      const user = userEvent.setup()
+      render(<Certifications certifications={[]} />)
+
+      const summary = screen.getByText('View Activities')
       const details = summary.closest('details') as HTMLDetailsElement
       expect(details.open).toBe(false)
 
+      for (const sentence of DESCRIPTION) {
+        expect(details).toContainElement(screen.getByText(sentence))
+      }
+      expect(within(details).queryByRole('listitem')).not.toBeInTheDocument()
+
       await user.click(summary)
       expect(details.open).toBe(true)
-
-      const items = within(details)
-        .getAllByRole('listitem')
-        .map((item) => item.textContent)
-      expect(items).toEqual([
-        'Machine Learning and AI Seminar',
-        'Design Thinking Workshop (UResearch Case Study)',
-        'Quality Inspection with Computer Vision Seminar',
-        'Academic exchange activities with international students',
-      ])
+      expect(screen.getByText(DESCRIPTION[0])).toBeVisible()
     })
   })
 })

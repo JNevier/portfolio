@@ -75,12 +75,12 @@ Each component folder holds `Name.tsx`, `index.ts` (so imports can say
 
 Tests sit next to the code they test (`Section.test.tsx` beside `Section.tsx`)
 and use Vitest's `describe` / `it` / `expect` with React Testing Library.
-There are 63 tests in 17 files.
+There are 65 tests in 17 files.
 
 - **Components** are tested the way a visitor uses them: find elements by
   role and label, click with `user-event`, then check what is on screen (for
-  example, that the course list opens, or that the training's activities
-  appear after opening its dropdown).
+  example, that the course list opens, or that the training's description
+  sits inside its "View Activities" dropdown).
 - **Components that read a data file** accept the same data as an optional
   prop, so a test can pass its own small list (see `Certifications` and
   `Highlights`).
@@ -156,7 +156,7 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 | Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `team` (shown under My role), `imageFit`, `gallery` (optional photos), `caseStudy` (`subtitle`, `overview`, `accomplishments`) |
 | Skills | `skills.ts` | Keep it matching the resume |
 | Certifications | `certifications.ts` | `courses`: the course list inside a certificate |
-| Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (sentences on the card), `activities` (the dropdown), `credentialUrl` (optional) |
+| Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (sentences inside the "View Activities" dropdown), `posts` (optional links, each with `href` and `label`), `credentialUrl` (optional) |
 
 To hide a project, wrap its entry in `projects.ts` in `/* ... */`. Each
 project's `slug` gives it a case study page at `/projects/<slug>`.
