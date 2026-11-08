@@ -24,6 +24,8 @@ export type Highlight = {
     /** The visible link text under the thumbnail. */
     label: string
   }
+  /** Optional outside link, e.g. the organizers' announcement post. */
+  link?: { href: string; label: string }
 }
 
 export const highlights: Highlight[] = [
@@ -44,5 +46,9 @@ export const highlights: Highlight[] = [
     period: 'October 2026',
     status:
       'Selected to pitch at YABONG 2026, the 5th PH Lifelong Learning Conference (December 2026), competing for final placement',
+    link: {
+      href: 'https://www.facebook.com/share/p/18jYsGF9iF/',
+      label: 'View announcement on Facebook',
+    },
   },
 ]
