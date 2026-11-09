@@ -169,11 +169,11 @@ export const projects: Project[] = [
     summary: 'A reserve-a-table web app from the Meta Front-End Capstone.',
     role: 'Front-End Developer',
     period: '2026',
-    status: 'In progress',
+    status: 'Completed',
     stack: ['React', 'JavaScript', 'HTML5', 'CSS3'],
     bullets: [
       'Built a table reservation flow for a restaurant as the capstone project of the Meta Front-End Developer Professional Certificate.',
-      'Developed the interface with React, JavaScript, HTML5, and CSS3. I am continuing to build out more features.',
+      'Developed the interface with React, JavaScript, HTML5, and CSS3.',
     ],
     links: [
       { label: 'Code', href: 'https://github.com/JNevier/little-lemon' },
@@ -182,7 +182,7 @@ export const projects: Project[] = [
     screenshotAlt: 'The Little Lemon restaurant logo',
     caseStudy: {
       overview: [
-        'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate. I am continuing to build out more features.',
+        'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate.',
       ],
     },
   },
