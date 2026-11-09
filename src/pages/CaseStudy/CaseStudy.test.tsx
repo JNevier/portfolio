@@ -97,7 +97,7 @@ describe('CaseStudy', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Overview' })).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate. I am continuing to build out more features.',
+        'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate.',
       ),
     ).toBeInTheDocument()
   })
