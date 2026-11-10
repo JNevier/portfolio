@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import ComingSoonCard from '../../components/projects/ComingSoonCard'
 import ProjectCard from '../../components/projects/ProjectCard'
 import ProjectGrid from '../../components/projects/ProjectGrid'
 import { projects } from '../../data/projects'
@@ -33,6 +34,10 @@ export default function AllProjects() {
           {projects.map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
+          <ComingSoonCard
+            title="More projects on the way"
+            text="New projects will appear here as I finish them."
+          />
         </ProjectGrid>
       </div>
     </div>
