@@ -4,9 +4,9 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { projects } from '../../data/projects'
 import CaseStudy from './CaseStudy'
 
-function renderCaseStudy(slug: string) {
+function renderCaseStudy(slug: string, state?: unknown) {
   return render(
-    <MemoryRouter initialEntries={[`/projects/${slug}`]}>
+    <MemoryRouter initialEntries={[{ pathname: `/projects/${slug}`, state }]}>
       <Routes>
         <Route path="/projects/:slug" element={<CaseStudy />} />
       </Routes>
@@ -117,5 +117,31 @@ describe('CaseStudy', () => {
       }
       unmount()
     }
+  })
+
+  it('goes back to the home Projects section by default', () => {
+    renderCaseStudy('studyspot-ph')
+
+    expect(screen.getByRole('link', { name: /back to projects/i })).toHaveAttribute(
+      'href',
+      '/#projects',
+    )
+  })
+
+  it('goes back to the All projects page with its filter when it came from there', () => {
+    renderCaseStudy('studyspot-ph', { from: '/projects?type=front-end' })
+
+    expect(
+      screen.getByRole('link', { name: /back to all projects/i }),
+    ).toHaveAttribute('href', '/projects?type=front-end')
+  })
+
+  it('ignores a "from" value that points to another website', () => {
+    renderCaseStudy('studyspot-ph', { from: '//example.com' })
+
+    expect(screen.getByRole('link', { name: /back to projects/i })).toHaveAttribute(
+      'href',
+      '/#projects',
+    )
   })
 })

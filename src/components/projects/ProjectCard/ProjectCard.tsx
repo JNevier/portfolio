@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import type { Project } from '../../../data/projects'
 import ProjectMedia from '../ProjectMedia'
 import './ProjectCard.css'
@@ -14,6 +14,12 @@ type ProjectCardProps = {
   Every piece of text comes from one entry in src/data/projects.ts.
 */
 export default function ProjectCard({ project }: ProjectCardProps) {
+  // Tell the case-study page where the visitor came from, so its "Back" link
+  // can return there: the home Projects section, or the All projects page
+  // with its filter (the ?type=... part of the URL) kept.
+  const { pathname, search } = useLocation()
+  const from = pathname === '/' ? '/#projects' : pathname + search
+
   return (
     <article className="project-card border-line bg-surface flex flex-col overflow-hidden rounded-lg border">
       <ProjectMedia
@@ -54,6 +60,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <div className="mt-auto pt-5">
           <Link
             to={`/projects/${project.slug}`}
+            state={{ from }}
             className="project-card__link text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
           >
             Read case study

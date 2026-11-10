@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import Accomplishments from '../../components/projects/Accomplishments'
 import Gallery from '../../components/projects/Gallery'
 import ProjectMedia from '../../components/projects/ProjectMedia'
@@ -23,6 +23,22 @@ export default function CaseStudy() {
   return <CaseStudyArticle project={project} />
 }
 
+/*
+  Where the "Back" link goes. The project card puts the page it was on in the
+  router state (`from`). Only an in-site path is trusted: it must start with
+  "/" but not "//" (that would point to another website). Otherwise, or when
+  the page was opened directly, go back to the home Projects section.
+*/
+function backTarget(state: unknown) {
+  const from = (state as { from?: unknown } | null)?.from
+  const to =
+    typeof from === 'string' && from.startsWith('/') && !from.startsWith('//')
+      ? from
+      : '/#projects'
+  const label = to.startsWith('/projects') ? 'Back to all projects' : 'Back to projects'
+  return { to, label }
+}
+
 /* A titled block inside the case study. */
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -43,14 +59,16 @@ function CaseStudyArticle({ project }: { project: Project }) {
   useDocumentTitle(`${project.title} case study — ${site.name}`)
 
   const { caseStudy } = project
+  const back = backTarget(useLocation().state)
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
       <Link
-        to="/#projects"
+        to={back.to}
         className="text-brand-700 hover:text-brand-800 text-sm font-semibold"
       >
-        <span aria-hidden="true">← </span>Back to all projects
+        <span aria-hidden="true">← </span>
+        {back.label}
       </Link>
 
       <header className="mt-6">
