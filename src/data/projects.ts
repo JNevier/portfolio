@@ -1,13 +1,31 @@
 /*
-  Featured projects, shown as cards in the Projects section.
+  Every project on the site: the cards, the All projects page (/projects) and
+  each case-study page (/projects/<slug>) read from this list.
 
-  To add or change a project, edit this list. The layout code reads every
-  field from here, so no component needs to change.
+  To add a project:
+  1. Add an entry to the list below. The layout code reads every field from
+     here, so no component needs to change.
+  2. Set `types` to one or more ids from src/data/projectTypes.ts. They decide
+     which filter chips on the All projects page show the project.
+  3. Put it in the right place: the order matters. The first FEATURED_COUNT
+     projects are the ones shown on the home page.
 */
+
+import type { ProjectTypeId } from './projectTypes'
+
+/**
+ * The first FEATURED_COUNT projects in the list are the ones shown on the
+ * home page, so the order of the list decides the top 3.
+ */
+export const FEATURED_COUNT = 3
 
 export type ProjectLink = {
   label: string
   href: string
+  /** Marks the live demo. The card shows the first link with `live: true`. */
+  live?: boolean
+  /** Optional short muted line shown under the link on the case-study page. */
+  note?: string
 }
 
 /**
@@ -48,6 +66,8 @@ export type Project = {
   /** Optional: who built it with me, so team work is credited clearly. */
   team?: string
   status: string
+  /** One or more project types, used by the filter chips. */
+  types: ProjectTypeId[]
   stack: string[]
   /** Short bullets for the "What I worked on" block. */
   bullets: string[]
@@ -66,6 +86,8 @@ export type Project = {
    * 'cover' fills the frame and may crop the edges, which suits photos.
    */
   imageFit?: 'contain' | 'cover'
+  /** Optional small muted line under the main image, on the case-study page only. */
+  imageCredit?: string
   /**
    * Optional photos for the case-study page. The Gallery block only appears
    * once this list has at least one image.
@@ -83,6 +105,7 @@ export const projects: Project[] = [
     period: '2026 – Present',
     team: 'Capstone / thesis project by Team Innovision (4 members)',
     status: 'In progress',
+    types: ['iot', 'thesis'],
     stack: ['C++', 'ESP32-C3', 'Raspberry Pi 5', 'UART', 'I2C', 'PWM', 'BMI160'],
     bullets: [
       'Co-developed an offline wearable assistive device that detects hazards and delivers audio and vibration alerts.',
@@ -127,6 +150,7 @@ export const projects: Project[] = [
     period: '2026',
     team: 'Team project',
     status: 'Completed',
+    types: ['full-stack'],
     stack: [
       'React',
       'TypeScript',
@@ -164,22 +188,81 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'studyspot-ph',
+    title: 'StudySpot PH',
+    summary: 'Browse study spaces across the Philippines and book a time slot.',
+    role: 'Front-End Developer',
+    period: '2025 – 2026',
+    team: 'Solo project, started as my Web Development midterm',
+    status: 'Completed',
+    types: ['front-end'],
+    stack: [
+      'React 19',
+      'Vite',
+      'React Router',
+      'React Hook Form',
+      'Yup',
+      'Bootstrap 5',
+      'Context API',
+      'Vitest',
+    ],
+    bullets: [
+      'Built the app solo with React 19 and Vite, starting from my Web Development midterm and improving it further in November 2026.',
+      'Implemented browsing and searching of study spaces by name or city.',
+      'Built the booking flow by date, time and number of guests, with a live price summary.',
+      'Wrote the booking rules that stop double-booking and times outside opening hours as plain functions with unit tests.',
+      'Let users change a booking (space, date, time, guests) up to 2 times before a deadline, or cancel it, and see upcoming and completed bookings in one place.',
+      'Added form validation with clear messages next to each field, using React Hook Form and Yup.',
+      'Checked the layout from phone to desktop widths, and tested keyboard-only navigation, visible focus, and an automated axe accessibility scan.',
+    ],
+    links: [
+      {
+        label: 'Live demo',
+        href: 'https://studyspot-ph.vercel.app',
+        live: true,
+        note: 'Log in with any name and email to try it. The login is simulated and all data stays in your browser.',
+      },
+      { label: 'Code', href: 'https://github.com/JNevier/midterm-project' },
+    ],
+    screenshot: '/projects/studyspot-ph.webp',
+    screenshotAlt:
+      'The StudySpot PH landing page: the headline "Find Your Perfect Study Spot in the Philippines", a photo of a study space, and four summary figures.',
+    imageCredit:
+      'Photos in the app are sample images and belong to their respective owners.',
+    caseStudy: {
+      subtitle: 'Study-Space Booking Web App',
+      overview: [
+        'StudySpot PH is a study-space booking web app for the Philippines. Visitors can browse spaces, check the hourly rate, and book a time slot.',
+        "I built it solo with React for my Web Development midterm in September 2025, then improved it in November 2026. It is a front-end demo with no back end: the login is simulated, and all data stays in the visitor's browser.",
+        'I focused on four things: booking logic written as plain functions with unit tests, forms with clear validation messages, responsive design from phone to desktop, and accessibility (keyboard-only use, visible focus, and an automated axe scan).',
+      ],
+    },
+  },
+
+  {
     slug: 'little-lemon',
     title: 'Little Lemon',
     summary: 'A reserve-a-table web app from the Meta Front-End Capstone.',
     role: 'Front-End Developer',
     period: '2026',
     status: 'Completed',
+    types: ['front-end'],
     stack: ['React', 'JavaScript', 'HTML5', 'CSS3'],
     bullets: [
       'Built a table reservation flow for a restaurant as the capstone project of the Meta Front-End Developer Professional Certificate.',
       'Developed the interface with React, JavaScript, HTML5, and CSS3.',
     ],
     links: [
+      {
+        label: 'Live demo',
+        href: 'https://littlelemon-chicago.vercel.app/',
+        live: true,
+      },
       { label: 'Code', href: 'https://github.com/JNevier/little-lemon' },
     ],
-    screenshot: '/projects/logo-yellow-lemon-box.png',
-    screenshotAlt: 'The Little Lemon restaurant logo',
+    screenshot: '/projects/little-lemon.webp',
+    screenshotAlt:
+      'The Little Lemon landing page: the restaurant name and a short description on a green background, next to a photo of appetizers served on a slate board.',
     caseStudy: {
       overview: [
         'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate.',
