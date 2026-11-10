@@ -69,7 +69,7 @@ describe('ProjectCard', () => {
     renderCard()
 
     expect(
-      screen.getByRole('link', { name: /read case study.*demo app/i }),
+      screen.getByRole('link', { name: /case study.*demo app/i }),
     ).toHaveAttribute('href', '/projects/demo-app')
   })
 

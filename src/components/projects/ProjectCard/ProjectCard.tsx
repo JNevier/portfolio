@@ -9,7 +9,7 @@ type ProjectCardProps = {
 
 /*
   One project card: a quick overview only. In order: image, title with
-  status, short description, role, tech stack, and a link to the case study.
+  status, short description, role, tech stack, and a "Case study" link.
   The bullets, period, team credit and repo links live on the case-study page;
   the card only adds a "Live demo" link when the project has one.
   Every piece of text comes from one entry in src/data/projects.ts.
@@ -66,7 +66,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             state={{ from }}
             className="project-card__link text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
           >
-            Read case study
+            Case study
             <span className="sr-only"> about {project.title}</span>
             <span aria-hidden="true"> →</span>
           </Link>

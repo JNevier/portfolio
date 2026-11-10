@@ -144,7 +144,7 @@ describe('AllProjects', () => {
     renderAt('/projects?type=front-end')
 
     await userEvent.click(
-      screen.getByRole('link', { name: /read case study.*studyspot ph/i }),
+      screen.getByRole('link', { name: /case study.*studyspot ph/i }),
     )
     expect(
       screen.getByRole('link', { name: /back to all projects/i }),
