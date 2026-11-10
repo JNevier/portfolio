@@ -60,7 +60,7 @@ describe('routes', () => {
     for (const project of projects) {
       expect(
         screen.getByRole('link', {
-          name: new RegExp(`read case study.*${project.title}`, 'i'),
+          name: new RegExp(`case study.*${project.title}`, 'i'),
         }),
       ).toHaveAttribute('href', `/projects/${project.slug}`)
     }

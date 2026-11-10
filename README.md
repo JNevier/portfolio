@@ -210,7 +210,7 @@ URL keep showing the name alone. A training works the same way: add
    no cropping). Real screenshots or photos: `imageFit: 'cover'` fills the frame.
 
 The card shows the image, title, status, summary, role, and stack, then the
-"Read case study" link and, when the project has one, "Live demo". The
+"Case study" link and, when the project has one, "Live demo". The
 bullets, period, team credit, accomplishments, photos, and links appear on the
 case-study page.
 
