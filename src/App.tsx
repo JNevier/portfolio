@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout'
 import ThemeProvider from './context/ThemeProvider'
+import AllProjects from './pages/AllProjects'
 import CaseStudy from './pages/CaseStudy'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
@@ -14,6 +15,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/projects" element={<AllProjects />} />
         <Route path="/projects/:slug" element={<CaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
