@@ -47,4 +47,16 @@ describe('AllProjects', () => {
       screen.getByRole('heading', { level: 1, name: 'Page not found' }),
     ).toBeInTheDocument()
   })
+
+  it('ends the list with one "More projects on the way" box', () => {
+    renderAt('/projects')
+
+    expect(screen.getAllByText('More projects on the way')).toHaveLength(1)
+  })
+
+  it('does not show the box on the home page', () => {
+    renderAt('/')
+
+    expect(screen.queryByText('More projects on the way')).not.toBeInTheDocument()
+  })
 })
