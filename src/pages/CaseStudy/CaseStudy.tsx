@@ -95,6 +95,9 @@ function CaseStudyArticle({ project }: { project: Project }) {
           className="border-line mt-8 rounded-lg border"
         />
       )}
+      {project.screenshot && project.imageCredit && (
+        <p className="text-muted mt-2 text-xs">{project.imageCredit}</p>
+      )}
 
       <div className="mt-10 space-y-10">
         {caseStudy?.overview && caseStudy.overview.length > 0 && (
@@ -153,7 +156,7 @@ function CaseStudyArticle({ project }: { project: Project }) {
           <Block title="Links">
             <ul className="flex flex-wrap gap-4">
               {project.links.map((link) => (
-                <li key={link.href}>
+                <li key={link.href} className={link.note ? 'max-w-md' : undefined}>
                   <a
                     href={link.href}
                     target="_blank"
@@ -166,6 +169,10 @@ function CaseStudyArticle({ project }: { project: Project }) {
                     <span className="sr-only"> (opens in a new tab)</span>
                     <span aria-hidden="true"> ↗</span>
                   </a>
+                  {/* Optional hint under the link, e.g. how to log in to a demo. */}
+                  {link.note && (
+                    <p className="text-muted mt-1 text-sm">{link.note}</p>
+                  )}
                 </li>
               ))}
             </ul>

@@ -102,21 +102,52 @@ describe('CaseStudy', () => {
     ).toBeInTheDocument()
   })
 
-  it('shows the GitHub logo next to each GitHub link', () => {
+  it('shows the logo of the linked site next to each link', () => {
     for (const project of projects) {
       const { unmount } = renderCaseStudy(project.slug)
-      const githubLinks = project.links.filter(
-        (link) => new URL(link.href).hostname === 'github.com',
-      )
-      for (const link of githubLinks) {
+      for (const link of project.links) {
         const anchor = screen.getByRole('link', { name: new RegExp(link.label) })
+        const expected = link.live ? 'vercel.app' : 'github.com'
         expect(anchor.querySelector('svg[aria-hidden="true"]')).toHaveAttribute(
           'data-icon',
-          'github.com',
+          expected,
         )
       }
       unmount()
     }
+  })
+
+  it('lists the StudySpot live demo before the code, with its note and the image credit', () => {
+    renderCaseStudy('studyspot-ph')
+
+    const linksBlock = screen
+      .getByRole('heading', { level: 2, name: 'Links' })
+      .closest('section')!
+    const links = within(linksBlock).getAllByRole('link')
+    expect(links.map((a) => a.textContent)).toEqual([
+      'Live demo (opens in a new tab) ↗',
+      'Code (opens in a new tab) ↗',
+    ])
+    expect(links[0]).toHaveAttribute('href', 'https://studyspot-ph.vercel.app')
+    expect(
+      within(linksBlock).getByText(
+        'Log in with any name and email to try it. The login is simulated and all data stays in your browser.',
+      ),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        'Photos in the app are sample images and belong to their respective owners.',
+      ),
+    ).toBeInTheDocument()
+  })
+
+  it('shows the Little Lemon live demo link', () => {
+    renderCaseStudy('little-lemon')
+
+    expect(screen.getByRole('link', { name: /live demo/i })).toHaveAttribute(
+      'href',
+      'https://littlelemon-chicago.vercel.app/',
+    )
   })
 
   it('goes back to the home Projects section by default', () => {
