@@ -220,7 +220,6 @@ export const projects: Project[] = [
         label: 'Live demo',
         href: 'https://studyspot-ph.vercel.app',
         live: true,
-        note: 'Log in with any name and email to try it. The login is simulated and all data stays in your browser.',
       },
       { label: 'Code', href: 'https://github.com/JNevier/midterm-project' },
     ],

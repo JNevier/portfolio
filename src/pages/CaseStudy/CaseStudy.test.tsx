@@ -117,7 +117,7 @@ describe('CaseStudy', () => {
     }
   })
 
-  it('lists the StudySpot live demo before the code, with its note and the image credit', () => {
+  it('lists the StudySpot live demo before the code, with the image credit', () => {
     renderCaseStudy('studyspot-ph')
 
     const linksBlock = screen
@@ -129,11 +129,8 @@ describe('CaseStudy', () => {
       'Code (opens in a new tab) ↗',
     ])
     expect(links[0]).toHaveAttribute('href', 'https://studyspot-ph.vercel.app')
-    expect(
-      within(linksBlock).getByText(
-        'Log in with any name and email to try it. The login is simulated and all data stays in your browser.',
-      ),
-    ).toBeInTheDocument()
+    // No note under the live demo link.
+    expect(within(linksBlock).queryByText(/log in/i)).not.toBeInTheDocument()
     expect(
       screen.getByText(
         'Photos in the app are sample images and belong to their respective owners.',

@@ -102,10 +102,9 @@ describe('ProjectCard', () => {
     expect(within(screen.getByRole('article')).getAllByRole('link')).toHaveLength(1)
   })
 
-  it('does not show link notes or the image credit on the card', () => {
+  it('does not show the image credit on the card', () => {
     renderCard(projects.find((p) => p.slug === 'studyspot-ph')!)
 
-    expect(screen.queryByText(/login is simulated/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/sample images/i)).not.toBeInTheDocument()
   })
 })
