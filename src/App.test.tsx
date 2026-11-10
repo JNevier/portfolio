@@ -54,7 +54,8 @@ describe('routes', () => {
   })
 
   it('links every project card to its case study', () => {
-    renderAt('/')
+    // Every project has a card on the All projects page.
+    renderAt('/projects')
 
     for (const project of projects) {
       expect(
