@@ -12,6 +12,7 @@ const project: Project = {
   period: '2026 – Present',
   team: 'Team project',
   status: 'In progress',
+  types: ['front-end'],
   stack: ['React', 'TypeScript'],
   bullets: ['Built the first bullet point.'],
   links: [{ label: 'Code', href: 'https://github.com/example/demo' }],

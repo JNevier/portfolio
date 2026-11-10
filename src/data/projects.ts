@@ -1,13 +1,31 @@
 /*
-  Featured projects, shown as cards in the Projects section.
+  Every project on the site: the cards, the All projects page (/projects) and
+  each case-study page (/projects/<slug>) read from this list.
 
-  To add or change a project, edit this list. The layout code reads every
-  field from here, so no component needs to change.
+  To add a project:
+  1. Add an entry to the list below. The layout code reads every field from
+     here, so no component needs to change.
+  2. Set `types` to one or more ids from src/data/projectTypes.ts. They decide
+     which filter chips on the All projects page show the project.
+  3. Put it in the right place: the order matters. The first FEATURED_COUNT
+     projects are the ones shown on the home page.
 */
+
+import type { ProjectTypeId } from './projectTypes'
+
+/**
+ * The first FEATURED_COUNT projects in the list are the ones shown on the
+ * home page, so the order of the list decides the top 3.
+ */
+export const FEATURED_COUNT = 3
 
 export type ProjectLink = {
   label: string
   href: string
+  /** Marks the live demo. The card shows the first link with `live: true`. */
+  live?: boolean
+  /** Optional short muted line shown under the link on the case-study page. */
+  note?: string
 }
 
 /**
@@ -48,6 +66,8 @@ export type Project = {
   /** Optional: who built it with me, so team work is credited clearly. */
   team?: string
   status: string
+  /** One or more project types, used by the filter chips. */
+  types: ProjectTypeId[]
   stack: string[]
   /** Short bullets for the "What I worked on" block. */
   bullets: string[]
@@ -66,6 +86,8 @@ export type Project = {
    * 'cover' fills the frame and may crop the edges, which suits photos.
    */
   imageFit?: 'contain' | 'cover'
+  /** Optional small muted line under the main image, on the case-study page only. */
+  imageCredit?: string
   /**
    * Optional photos for the case-study page. The Gallery block only appears
    * once this list has at least one image.
@@ -83,6 +105,7 @@ export const projects: Project[] = [
     period: '2026 – Present',
     team: 'Capstone / thesis project by Team Innovision (4 members)',
     status: 'In progress',
+    types: ['iot', 'thesis'],
     stack: ['C++', 'ESP32-C3', 'Raspberry Pi 5', 'UART', 'I2C', 'PWM', 'BMI160'],
     bullets: [
       'Co-developed an offline wearable assistive device that detects hazards and delivers audio and vibration alerts.',
@@ -127,6 +150,7 @@ export const projects: Project[] = [
     period: '2026',
     team: 'Team project',
     status: 'Completed',
+    types: ['full-stack'],
     stack: [
       'React',
       'TypeScript',
@@ -170,6 +194,7 @@ export const projects: Project[] = [
     role: 'Front-End Developer',
     period: '2026',
     status: 'Completed',
+    types: ['front-end'],
     stack: ['React', 'JavaScript', 'HTML5', 'CSS3'],
     bullets: [
       'Built a table reservation flow for a restaurant as the capstone project of the Meta Front-End Developer Professional Certificate.',
