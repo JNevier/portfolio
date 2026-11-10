@@ -253,10 +253,16 @@ export const projects: Project[] = [
       'Developed the interface with React, JavaScript, HTML5, and CSS3.',
     ],
     links: [
+      {
+        label: 'Live demo',
+        href: 'https://littlelemon-chicago.vercel.app/',
+        live: true,
+      },
       { label: 'Code', href: 'https://github.com/JNevier/little-lemon' },
     ],
-    screenshot: '/projects/logo-yellow-lemon-box.png',
-    screenshotAlt: 'The Little Lemon restaurant logo',
+    screenshot: '/projects/little-lemon.webp',
+    screenshotAlt:
+      'The Little Lemon landing page: the restaurant name and a short description on a green background, next to a photo of appetizers served on a slate board.',
     caseStudy: {
       overview: [
         'Little Lemon is a reserve-a-table web app for a fictional restaurant, built as the capstone of the Meta Front-End Developer Professional Certificate.',
