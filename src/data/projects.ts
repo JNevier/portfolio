@@ -188,6 +188,58 @@ export const projects: Project[] = [
   },
 
   {
+    slug: 'studyspot-ph',
+    title: 'StudySpot PH',
+    summary: 'Browse study spaces across the Philippines and book a time slot.',
+    role: 'Front-End Developer',
+    period: '2025 – 2026',
+    team: 'Solo project, started as my Web Development midterm',
+    status: 'Completed',
+    types: ['front-end'],
+    stack: [
+      'React 19',
+      'Vite',
+      'React Router',
+      'React Hook Form',
+      'Yup',
+      'Bootstrap 5',
+      'Context API',
+      'Vitest',
+    ],
+    bullets: [
+      'Built the app solo with React 19 and Vite, starting from my Web Development midterm and improving it further in November 2026.',
+      'Implemented browsing and searching of study spaces by name or city.',
+      'Built the booking flow by date, time and number of guests, with a live price summary.',
+      'Wrote the booking rules that stop double-booking and times outside opening hours as plain functions with unit tests.',
+      'Let users change a booking (space, date, time, guests) up to 2 times before a deadline, or cancel it, and see upcoming and completed bookings in one place.',
+      'Added form validation with clear messages next to each field, using React Hook Form and Yup.',
+      'Checked the layout from phone to desktop widths, and tested keyboard-only navigation, visible focus, and an automated axe accessibility scan.',
+    ],
+    links: [
+      {
+        label: 'Live demo',
+        href: 'https://studyspot-ph.vercel.app',
+        live: true,
+        note: 'Log in with any name and email to try it. The login is simulated and all data stays in your browser.',
+      },
+      { label: 'Code', href: 'https://github.com/JNevier/midterm-project' },
+    ],
+    screenshot: '/projects/studyspot-ph.webp',
+    screenshotAlt:
+      'The StudySpot PH landing page: the headline "Find Your Perfect Study Spot in the Philippines", a photo of a study space, and four summary figures.',
+    imageCredit:
+      'Photos in the app are sample images and belong to their respective owners.',
+    caseStudy: {
+      subtitle: 'Study-Space Booking Web App',
+      overview: [
+        'StudySpot PH is a study-space booking web app for the Philippines. Visitors can browse spaces, check the hourly rate, and book a time slot.',
+        "I built it solo with React for my Web Development midterm in September 2025, then improved it in November 2026. It is a front-end demo with no back end: the login is simulated, and all data stays in the visitor's browser.",
+        'I focused on four things: booking logic written as plain functions with unit tests, forms with clear validation messages, responsive design from phone to desktop, and accessibility (keyboard-only use, visible focus, and an automated axe scan).',
+      ],
+    },
+  },
+
+  {
     slug: 'little-lemon',
     title: 'Little Lemon',
     summary: 'A reserve-a-table web app from the Meta Front-End Capstone.',

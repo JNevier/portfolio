@@ -44,7 +44,7 @@ describe('CaseStudy', () => {
   })
 
   it('shows no Project Accomplishments block on the other projects', () => {
-    for (const slug of ['sobre-pos', 'little-lemon']) {
+    for (const slug of ['sobre-pos', 'studyspot-ph', 'little-lemon']) {
       const { unmount } = renderCaseStudy(slug)
       expect(screen.queryByRole('heading', { name: 'Project Accomplishments' })).toBeNull()
       unmount()
@@ -102,10 +102,13 @@ describe('CaseStudy', () => {
     ).toBeInTheDocument()
   })
 
-  it('shows the logo of the linked site next to each link', () => {
+  it('shows the GitHub logo next to each GitHub link', () => {
     for (const project of projects) {
       const { unmount } = renderCaseStudy(project.slug)
-      for (const link of project.links) {
+      const githubLinks = project.links.filter(
+        (link) => new URL(link.href).hostname === 'github.com',
+      )
+      for (const link of githubLinks) {
         const anchor = screen.getByRole('link', { name: new RegExp(link.label) })
         expect(anchor.querySelector('svg[aria-hidden="true"]')).toHaveAttribute(
           'data-icon',
