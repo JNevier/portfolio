@@ -28,10 +28,19 @@ npm run preview     # preview the production build
 | URL | Page | File |
 |---|---|---|
 | `/` | Home page with every section (`/#projects`, `/#about`, `/#skills`, `/#contact`) | `src/pages/Home` |
+| `/projects` | All projects, with filter chips (e.g. `/projects?type=front-end`) | `src/pages/AllProjects` |
 | `/projects/:slug` | Case study for one project, e.g. `/projects/sobre-pos` | `src/pages/CaseStudy` |
 | anything else | Page not found | `src/pages/NotFound` |
 
 An unknown project slug also shows the not-found page.
+
+The home page shows only the first three projects in `projects.ts`. When there
+are more, a "View all projects (N)" link under them opens `/projects`.
+
+On `/projects`, the chosen filter lives in the URL as `?type=<id>` (read and
+written with React Router's `useSearchParams`). That means a filtered list can
+be shared or refreshed, and the case-study "Back to all projects" link returns
+to the same filter. A missing or unknown `type` shows every project.
 
 ## Folder structure
 
@@ -47,10 +56,14 @@ src/
       Layout/                 skip link + Navbar + page + Footer
       Navbar/  Footer/
       ScrollManager/          scrolls to the top or to #section on navigation
+                              (but not when only the filter in the URL changes)
     sections/                 one per home page section
       Hero/  Highlights/  Projects/  About/  Skills/  Certifications/  Contact/
     projects/
-      ProjectCard/            one card in the Projects grid
+      ProjectCard/            one project card (case-study link, plus "Live demo" when there is one)
+      ProjectGrid/            the card grid, shared by the home page and /projects
+      FilterChips/            the type filter buttons on /projects
+      ComingSoonCard/         the dashed "More projects on the way" box
       ProjectMedia/           the 16:9 image frame, used by cards, case studies, and the gallery
       Accomplishments/        result cards on a case study (stat above text)
       Gallery/                optional project photos on a case study
@@ -60,10 +73,11 @@ src/
       Disclosure/             a <details> show/hide dropdown (courses, activities)
       LinkIcon/               the logo of the site a link goes to (GitHub, Instagram, ...)
   pages/                      one folder per route
-    Home/  CaseStudy/  NotFound/
+    Home/  AllProjects/  CaseStudy/  NotFound/
   context/                    ThemeContext.ts, ThemeProvider.tsx
   hooks/                      useTheme, useDocumentTitle, useActiveSection, useInView
   data/                       all the text content of the site
+                              (projectTypes.ts lists the filter types)
   test/                       test setup and the IntersectionObserver mock
 .github/workflows/ci.yml      lint, test, and build on every push to main
 vercel.json                   sends every URL to index.html (see Deploy)
@@ -76,7 +90,7 @@ Each component folder holds `Name.tsx`, `index.ts` (so imports can say
 
 Tests sit next to the code they test (`Section.test.tsx` beside `Section.tsx`)
 and use Vitest's `describe` / `it` / `expect` with React Testing Library.
-There are 69 tests in 18 files.
+There are 107 tests in 25 files.
 
 - **Components** are tested the way a visitor uses them: find elements by
   role and label, click with `user-event`, then check what is on screen (for
@@ -89,6 +103,8 @@ There are 69 tests in 18 files.
 - **Browser APIs jsdom lacks** are replaced with fakes: `matchMedia`,
   `IntersectionObserver` (`src/test/mockIntersectionObserver.ts`),
   and scrolling (`src/test/setup.ts`).
+- **Data modules can be swapped** with `vi.mock` for one test file, e.g.
+  `Projects.fewProjects.test.tsx` checks the home page with only 3 projects.
 
 ## Where things go
 
@@ -154,7 +170,8 @@ Most updates are data edits in `src/data/`. Layout code should not need to chang
 | Contact intro | `site.ts` | `contactIntro`: the text under the Contact heading |
 | Education | `site.ts` (`education`) | `logo`: the school seal next to the school name |
 | Competition results | `highlights.ts` | `proof`: an optional thumbnail link to a proof image; `link`: an optional text link (`href`, `label`), e.g. an announcement post |
-| Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `team` (shown under My role), `imageFit`, `gallery` (optional photos), `caseStudy` (`subtitle`, `overview`, `accomplishments`) |
+| Projects and their case studies | `projects.ts` | `slug`, `summary` (shown on the card), `types` (filter types, from `projectTypes.ts`), `team` (shown under My role), `imageFit`, `imageCredit` (small line under the case-study image), `gallery` (optional photos), `links` (`live: true` marks the live demo, `note` adds a short line under a link on the case study), `caseStudy` (`subtitle`, `overview`, `accomplishments`). The order of the list matters: the first `FEATURED_COUNT` (3) are the home page projects |
+| Filter types | `projectTypes.ts` | `id` and `label` of each chip; the order here is the order of the chips after "All" |
 | Skills | `skills.ts` | Keep it matching the resume |
 | Certifications | `certifications.ts` | `courses`: the course list inside a certificate |
 | Seminars and trainings | `certifications.ts` (`trainings`) | `program`, `subtitle` (place, length, year), `description` (bullets inside the "View Activities" dropdown), `posts` (optional links, each with `href` and `label`), `credentialUrl` (optional) |
@@ -179,12 +196,21 @@ URL keep showing the name alone. A training works the same way: add
 1. Put its image in `public/projects/`, e.g. `public/projects/my-app.png`.
 2. Add an entry to `projects.ts` with a unique `slug`, a short `summary`,
    `role`, `period`, `status`, `stack`, `bullets`, and `links`.
-3. Set `screenshot: '/projects/my-app.png'` and a `screenshotAlt` that
+   Put it in the right place in the list: the first 3 projects are the ones
+   on the home page, the rest appear only on `/projects`.
+3. Set `types` to one or more ids from `projectTypes.ts` (for example
+   `['front-end']`). They decide which filter chips show the project.
+4. If it has a live demo, add it as the first link with `live: true`:
+   `{ label: 'Live demo', href: 'https://...', live: true }`. The card then
+   gets a "Live demo" link too. Add `note` for a short hint under the link on
+   the case-study page (for example, how to log in).
+5. Set `screenshot: '/projects/my-app.png'` and a `screenshotAlt` that
    describes what the image really shows.
-4. Logos and illustrations: leave `imageFit` out (it defaults to `'contain'`,
+6. Logos and illustrations: leave `imageFit` out (it defaults to `'contain'`,
    no cropping). Real screenshots or photos: `imageFit: 'cover'` fills the frame.
 
-The card shows the image, title, status, summary, role, and stack. The
+The card shows the image, title, status, summary, role, and stack, then the
+"Read case study" link and, when the project has one, "Live demo". The
 bullets, period, team credit, accomplishments, photos, and links appear on the
 case-study page.
 
@@ -248,7 +274,7 @@ the right category folder, add a `.css` file only if it meets the rules above,
 add a test next to it, and merge once lint, tests, and build pass.
 
 **Ideas parked for later**, to pick up when a course or the resume justifies them:
-calling a public API, data-fetching hooks, filtering the project list, video
+calling a public API, data-fetching hooks, video
 or audio media, Sass, higher-order components and render props, and a
 practice page for data structures and algorithms.
 
@@ -259,7 +285,7 @@ practice page for data structures and algorithms.
 | `public/Reiven-Jasa-Resume.pdf` | The navbar Resume button (`resumePath` in `site.ts`). To update it, replace the file and keep the name |
 | `public/profile.jpg` | The photo in the Hero and About sections (`photo` in `site.ts`) |
 | `public/de_la_salle_lipa_seal.png` | The official school seal in the Education card (`education.logo` in `site.ts`), shown on a small white tile in both themes |
-| `public/projects/*.png`, `public/projects/sobre-pos.webp` | Each project's `screenshot` in `projects.ts`. Sobre POS uses a resized WebP copy of its screenshot to keep the page light |
+| `public/projects/*.png`, `public/projects/*.webp` | Each project's `screenshot` in `projects.ts`. Sobre POS, StudySpot PH and Little Lemon use resized WebP copies of their screenshots to keep the page light. `logo-yellow-lemon-box.png` is the old Little Lemon logo and is no longer used |
 | `public/projects/<slug>/` | Optional case-study photos (`gallery` in `projects.ts`) |
 | `public/recognition/*.jpg` | Proof thumbnails (`proof.src` in `highlights.ts`) |
 
