@@ -10,7 +10,8 @@ type ProjectCardProps = {
 /*
   One project card: a quick overview only. In order: image, title with
   status, short description, role, tech stack, and a link to the case study.
-  The bullets, period, team credit and repo links live on the case-study page.
+  The bullets, period, team credit and repo links live on the case-study page;
+  the card only adds a "Live demo" link when the project has one.
   Every piece of text comes from one entry in src/data/projects.ts.
 */
 export default function ProjectCard({ project }: ProjectCardProps) {
@@ -19,6 +20,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   // with its filter (the ?type=... part of the URL) kept.
   const { pathname, search } = useLocation()
   const from = pathname === '/' ? '/#projects' : pathname + search
+  // The first live demo link, if the project has one.
+  const live = project.links.find((link) => link.live)
 
   return (
     <article className="project-card border-line bg-surface flex flex-col overflow-hidden rounded-lg border">
@@ -56,8 +59,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           ))}
         </ul>
 
-        {/* mt-auto pushes the link to the bottom so cards in a row line up. */}
-        <div className="mt-auto pt-5">
+        {/* mt-auto pushes the links to the bottom so cards in a row line up. */}
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-4 gap-y-2 pt-5">
           <Link
             to={`/projects/${project.slug}`}
             state={{ from }}
@@ -67,6 +70,22 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <span className="sr-only"> about {project.title}</span>
             <span aria-hidden="true"> →</span>
           </Link>
+
+          {live && (
+            <a
+              href={live.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-card__link text-brand-700 hover:text-brand-800 text-sm font-semibold underline-offset-4 hover:underline"
+            >
+              Live demo
+              <span className="sr-only">
+                {' '}
+                of {project.title} (opens in a new tab)
+              </span>
+              <span aria-hidden="true"> ↗</span>
+            </a>
+          )}
         </div>
       </div>
     </article>

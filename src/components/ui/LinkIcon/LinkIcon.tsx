@@ -1,5 +1,6 @@
 import type { IconType } from 'react-icons'
 import { FaFacebook, FaGithub, FaGlobe, FaInstagram, FaLinkedin } from 'react-icons/fa6'
+import { SiVercel } from 'react-icons/si'
 
 /* Known websites and their logos. Anything else gets a plain globe. */
 const ICONS: Record<string, IconType> = {
@@ -7,6 +8,17 @@ const ICONS: Record<string, IconType> = {
   'instagram.com': FaInstagram,
   'facebook.com': FaFacebook,
   'linkedin.com': FaLinkedin,
+  'vercel.app': SiVercel,
+}
+
+/*
+  Which entry of ICONS a website uses. Every app hosted on Vercel lives on a
+  subdomain (e.g. studyspot-ph.vercel.app), so those all get the Vercel logo.
+  The check needs the dot: "notvercel.app" is a different site.
+*/
+function iconKey(site: string) {
+  if (site === 'vercel.app' || site.endsWith('.vercel.app')) return 'vercel.app'
+  return site
 }
 
 /** "https://www.github.com/x" -> "github.com". Returns '' for a bad URL. */
@@ -29,7 +41,7 @@ type LinkIconProps = {
   readers skip the icon.
 */
 export default function LinkIcon({ href, className = '' }: LinkIconProps) {
-  const site = siteOf(href)
+  const site = iconKey(siteOf(href))
   const Icon = ICONS[site] ?? FaGlobe
   return (
     <Icon

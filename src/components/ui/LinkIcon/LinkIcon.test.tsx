@@ -18,8 +18,26 @@ describe('LinkIcon', () => {
   })
 
   it('falls back to a globe for unknown websites', () => {
-    const { container } = render(<LinkIcon href="https://my-app.vercel.app" />)
+    const { container } = render(<LinkIcon href="https://example.com/page" />)
 
     expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'globe')
+  })
+
+  it('uses the Vercel logo for apps hosted on vercel.app', () => {
+    const { container } = render(<LinkIcon href="https://studyspot-ph.vercel.app" />)
+
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'vercel.app')
+  })
+
+  it('does not treat a host that only ends with the text "vercel.app" as Vercel', () => {
+    const { container } = render(<LinkIcon href="https://notvercel.app" />)
+
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'globe')
+  })
+
+  it('still uses the GitHub logo for GitHub', () => {
+    const { container } = render(<LinkIcon href="https://github.com/JNevier/midterm-project" />)
+
+    expect(container.querySelector('svg')).toHaveAttribute('data-icon', 'github.com')
   })
 })
